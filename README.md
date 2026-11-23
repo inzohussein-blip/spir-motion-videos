@@ -59,6 +59,7 @@ spir-motion-videos/
 | 🎙️ ترجمة متزامنة مع الصوت | `remotion-arabic-reel` ← `CaptionedReel` | تعليق صوتي من ElevenLabs + كلمات تُبرز لحظة نطقها |
 | 🧠 سكل كتابة السكربت | [`07-skills/video-script-writer`](07-skills/video-script-writer/SKILL.md) | سكربت مقسّم لمشاهد بالتوقيت والتعليق الصوتي |
 | 🧠 سكل البرومبتات | [`07-skills/storyboard-to-prompts`](07-skills/storyboard-to-prompts/SKILL.md) | تحويل المشاهد إلى برومبتات صور وفيديو بأسلوب موحّد |
+| 📚 مرجع claude-make-an-anime | [`10-references/claude-make-an-anime`](10-references/claude-make-an-anime) | تحليل كامل + دروس برومبتات مجرّبة + أدوات منقولة |
 | 💬 برومبتات أمثلة | [`06-ai-prompts`](06-ai-prompts) | صورة سينمائية، لقطة منتج، سكربت Reel |
 
 **مسار عمل سريع:** سكربت (`video-script-writer`) ← تعليق صوتي وتوقيتات (ElevenLabs) ← برومبتات (`storyboard-to-prompts`) ← توليد المرئيات ← تركيب في قالب Remotion بهوية الشركة ← تصدير.
