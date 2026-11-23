@@ -317,6 +317,27 @@ tr:last-child td{border-bottom:0}
 
 @media (max-width:600px){.safe-wrap{grid-template-columns:1fr}.phone{width:200px;justify-self:center}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/* v8 additions */
+.dk2{background:#081420}.dk3{background:#040A22}
+.ubar{display:inline-block;background:#C8FF00;color:#061731;font-weight:800;font-size:24px;padding:2px 16px 6px;border-radius:6px;transform:rotate(-4deg);transform-origin:100% 50%;animation:ub 3s infinite}
+@keyframes ub{0%{transform:rotate(-4deg) scaleX(0)}18%,100%{transform:rotate(-4deg) scaleX(1)}}
+.stl1{color:#fff;font-weight:800;font-size:24px}.stl2{color:#16E9D7;font-weight:800;font-size:24px}
+.stdv{height:3px;width:70px;background:#16E9D7;margin:8px 0 0 auto;transform-origin:100% 50%;animation:ub2 3s infinite}
+@keyframes ub2{0%{transform:scaleX(0)}15%,100%{transform:scaleX(1)}}
+.capdemo{background:rgba(2,8,26,.8);border-radius:10px;padding:6px 14px;font-weight:800;font-size:20px;color:rgba(255,255,255,.42)}
+.capdemo b{animation:cw 3s infinite}.capdemo b:nth-child(2){animation-delay:.75s}.capdemo b:nth-child(3){animation-delay:1.5s}
+@keyframes cw{0%{color:rgba(255,255,255,.42)}1%,24%{color:#16E9D7}25%,100%{color:#fff}}
+.lotb{display:flex;align-items:flex-end;gap:10px;height:120px;direction:rtl}.lotb i{width:30px;border-radius:5px;transform-origin:bottom;animation:lg 3s infinite}
+@keyframes lg{0%{transform:scaleY(0)}30%,100%{transform:scaleY(1)}}
+.calc{background:rgba(255,255,255,.06);border:1.5px solid rgba(22,233,215,.5);border-radius:12px;padding:8px 14px;width:220px;font-size:13px;color:#BBD8FF}
+.calc div{display:flex;justify-content:space-between;border-bottom:1px solid rgba(187,216,255,.15);padding:3px 0}.calc b{color:#fff;font-family:var(--font-mono,monospace);direction:ltr}
+.calc .rs{border:1.5px solid #16E9D7;border-radius:8px;margin-top:6px;padding:4px 8px}.calc .rs b{color:#16E9D7;font-size:18px}
+.toastd{background:rgba(255,255,255,.08);border:1.5px solid rgba(200,255,0,.5);border-radius:30px;padding:6px 14px;color:#fff;font-size:13px;display:flex;gap:8px;align-items:center;animation:td 3s infinite}
+.toastd i{width:18px;height:18px;border-radius:50%;background:#C8FF00;display:block}
+@keyframes td{0%,35%{opacity:0;transform:translateY(-14px)}50%,100%{opacity:1;transform:none}}
+.tower{display:flex;flex-direction:column-reverse;gap:4px}.tower i{display:grid;place-items:center;width:120px;height:26px;border:1.5px solid rgba(200,255,0,.5);border-radius:6px;background:rgba(255,255,255,.06);color:#fff;font-style:normal;font-weight:800;font-size:12px;animation:tw 3s infinite both}
+.tower i:nth-child(2){animation-delay:.25s}.tower i:nth-child(3){animation-delay:.5s}.tower i:nth-child(4){animation-delay:.75s;color:#C8FF00;border-color:#C8FF00}
+@keyframes tw{0%{opacity:0;transform:translateY(-60px)}20%,100%{opacity:1;transform:none}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -352,15 +373,16 @@ tr:last-child td{border-bottom:0}
 
   <section>
     <h2>ما نملكه الآن · نوفمبر 2026</h2>
-    <p class="muted">بعد المرجعين أنتجنا ستة فيديوهات لخمسة براندات، وتكوّن عندنا محرك موشن سينمائي ثابت. هذا القسم يجمع ما صار جاهزاً للاستخدام المباشر.</p>
+    <p class="muted">بعد المرجعين أنتجنا ثمانية فيديوهات لسبعة براندات، وتكوّن عندنا محرك موشن سينمائي ثابت مع ترجمة متزامنة. هذا القسم يجمع ما صار جاهزاً للاستخدام المباشر.</p>
 
     <h3>خط الإنتاج</h3>
     <ol class="pipe">
       <li><b>السكربت</b><span class="muted">تدقيق الأرقام من مصدر مفتوح، وحذف الادعاءات غير القابلة للإثبات</span></li>
-      <li><b>التعليق الصوتي</b><span class="muted">ElevenLabs · Eleven v4 · تسجيل واحد · حسين ينزّل الـ mp3 ويرسله</span></li>
+      <li><b>التعليق الصوتي</b><span class="muted">ElevenLabs · Eleven v4 · تسجيل واحد · نرسل لحسين رابط الـ mp3 المباشر فينزّله ويرسله</span></li>
       <li><b>المشاهد</b><span class="muted">صفحة HTML واحدة فيها الدالة <span class="mono">render(t)</span> ترسم أي لحظة</span></li>
-      <li><b>المزامنة</b><span class="muted">قراءة الوقفات من الصوت (silencedetect) وضبط بداية كل مشهد على جملته</span></li>
-      <li><b>التصدير</b><span class="muted">Playwright يصوّر كل فريم ← ffmpeg لكل مشهد ← دمج بـ concat</span></li>
+      <li><b>المزامنة</b><span class="muted">قراءة الوقفات من الصوت (silencedetect) وضبط بداية كل مشهد على جملته، وكل عنصر على كلمته</span></li>
+      <li><b>الترجمة</b><span class="muted">مجموعات 2–5 كلمات أسفل المنطقة الآمنة، الكلمة المنطوقة بلون البراند</span></li>
+      <li><b>التصدير</b><span class="muted">Playwright يصوّر كل فريم ← ffmpeg (أو لكل مشهد ثم concat)، والتوقيت يُحقن من timing.json</span></li>
       <li><b>الصوت النهائي</b><span class="muted">موسيقى مولّدة 0.5 مع ducking تحت الصوت، بدون أصوات انتقال</span></li>
       <li><b>الحفظ</b><span class="muted">المصدر وملف التفاصيل في المشروع + حزمة zip لأي محادثة أخرى</span></li>
     </ol>
@@ -402,6 +424,30 @@ tr:last-child td{border-bottom:0}
 
       <article class="card"><div class="stage dk"><div class="scs"><div>استمرار الهبوط</div><div>استقرار ضمن نطاق</div><div>عودة الصعود</div></div></div>
         <div class="body"><span class="tag">سيناريوهات</span><h3>بطاقات تُضاء بالتتابع</h3><dl class="spec"><dt>الحركة</dt><dd>كل بطاقة تدخل وتُضاء بحدّ ملوّن لحظة ذكرها، وتنطفئ عند التالية</dd><dt>الألوان</dt><dd>أحمر / لون البراند / أخضر</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk2"><div style="text-align:right"><div class="stl1" style="font-family:Tajawal,var(--font-body)">أغلب الشراكات</div><span class="ubar">تبدأ بحماس كبير</span></div></div>
+        <div class="body"><span class="tag">Ultima</span><h3>عنوان بشريط ليموني مائل</h3><dl class="spec"><dt>الحركة</dt><dd>السطر الأبيض كلمة كلمة، ثم الشريط يُفرد من اليمين (scaleX) 0.35ث، ثم النص الكحلي يصعد</dd><dt>الميلان</dt><dd>‎-4°، نص navy على lime فقط</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk3"><div style="text-align:right"><div class="stl1">أكبر خطأ</div><div class="stl2">يدمّر الحسابات!</div><div class="stdv"></div></div></div>
+        <div class="body"><span class="tag">STARTRADER</span><h3>الخط الفاصل ثم سطران</h3><dl class="spec"><dt>الحركة</dt><dd>الخط التركوازي يُرسم من اليمين 0.3ث، السطر الأبيض يصعد، ثم التركوازي بعده</dd><dt>قاعدة</dt><dd>بلا أيقونات، بلا كلمة PARTNERS على الشعار</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk3"><div class="capdemo"><b>احسب</b> <b>حجم</b> <b>الصفقة</b></div></div>
+        <div class="body"><span class="tag">ترجمة</span><h3>كابشن كلمة كلمة</h3><dl class="spec"><dt>المكان</dt><dd>top 1452px، فوق منطقة الأمان السفلية</dd><dt>التوقيت</dt><dd>الكلمات موزعة بالتناسب داخل كل مقطع بين وقفتين، الحالية بلون البراند والمنطوقة بيضاء</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk3"><div class="lotb"><i style="height:16px;background:#16E9D7"></i><i style="height:32px;background:#F5B23D;animation-delay:.3s"></i><i style="height:70px;background:#FF7A55;animation-delay:.6s"></i><i style="height:118px;background:#FF4D5E;animation-delay:.9s"></i></div></div>
+        <div class="body"><span class="tag fix">مخاطر</span><h3>أحجام لوت تتصاعد</h3><dl class="spec"><dt>الحركة</dt><dd>أعمدة 0.10→1.00 تقفز مع overshoot لحظة نطقها، واللون من التركواز إلى الأحمر</dd><dt>العكس</dt><dd>أعمدة متساوية 1% تحت خط حد ثابت = الحل</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk3"><div class="calc"><div>رأس المال<b>$5,000</b></div><div>المخاطرة<b>1% = $50</b></div><div>وقف الخسارة<b>25</b></div><div class="rs">حجم الصفقة<b>0.20 lot</b></div></div></div>
+        <div class="body"><span class="tag">تعليم</span><h3>بطاقة حاسبة زجاجية</h3><dl class="spec"><dt>الحركة</dt><dd>الصفوف تصعد بالتتابع، النتيجة تقفز ويعدّ الرقم 0→0.20</dd><dt>قاعدة</dt><dd>حساب صحيح + «مثال توضيحي» مع الزوج وقيمة النقطة</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk3"><svg viewBox="0 0 260 120" width="260" height="120"><line x1="10" y1="80" x2="250" y2="80" stroke="#BBD8FF" stroke-opacity=".3" stroke-dasharray="4 5"/><path d="M250,80 L220,70 L190,62 L160,50 L130,44 L100,34 L70,26 L50,24 L30,112" fill="none" stroke="#FF4D5E" stroke-width="4" stroke-linejoin="round"/><path d="M250,80 L220,70 L190,62 L160,50 L130,44 L100,34 L70,26 L50,24" fill="none" stroke="#16E9D7" stroke-width="4" stroke-linejoin="round"/></svg></div>
+        <div class="body"><span class="tag fix">مخاطر</span><h3>منحنى أيام يمحوه هبوط واحد</h3><dl class="spec"><dt>الحركة</dt><dd>صعود هادئ على أيام الأسبوع (RTL)، ثم هبوط حاد لحظة «تمسح» مع اهتزاز ووهج أحمر</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk2"><div class="tower"><i>وضوح</i><i>التزام</i><i>متابعة</i><i>ثقة</i></div></div>
+        <div class="body"><span class="tag">ثقة</span><h3>برج كتل زجاجية</h3><dl class="spec"><dt>الحركة</dt><dd>كل كتلة تسقط بـ overshoot كل 0.24ث، والقمة تتوهج بلون البراند</dd><dt>يقابله</dt><dd>لوحان يتلاقيان ثم يتشققان = شراكة تنتهي بسرعة</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk2"><div class="toastd"><i></i>رسالة جديدة: نرتّب التفاصيل؟</div></div>
+        <div class="body"><span class="tag">CTA</span><h3>نقرة مؤشر + إشعار</h3><dl class="spec"><dt>الحركة</dt><dd>مؤشر ينزلق إلى زر التواصل، ضغطة وموجة، ثم إشعار ينزل بـ overshoot مع رنة خفيفة</dd><dt>يصلح لـ</dt><dd>تيليغرام، الرسائل، «تواصل معنا»</dd></dl></div></article>
     </div>
 
     <h3>هويات البراندات في المحرك</h3>
@@ -409,21 +455,25 @@ tr:last-child td{border-bottom:0}
       <div class="bc"><div class="bh" style="background:#071B32"><b>VECTOR FX</b><div class="sws"><i style="background:#071B32"></i><i style="background:#14C8A6"></i><i style="background:#84CC16"></i><i style="background:#9CA3AF"></i></div></div><div class="bb">Tajawal + Montserrat<span>الشعار vfx-logo.png أعلى اليسار · تدرج تركوازي→ليموني</span></div></div>
       <div class="bc"><div class="bh" style="background:#07090C"><b style="color:#F6DE8A">QFX GROUP</b><div class="sws"><i style="background:#07090C"></i><i style="background:#D4AF37"></i><i style="background:#F6DE8A"></i><i style="background:#A9A39A"></i></div></div><div class="bb">IBM Plex Sans Arabic + Montserrat<span>ذهبي على أسود · خط الدولار فضي حتى لا يتطابق مع الذهب · وسيطها VT Markets</span></div></div>
       <div class="bc"><div class="bh" style="background:#050505"><b style="color:#F2D58A">1R PARTNERS</b><div class="sws"><i style="background:#050505"></i><i style="background:#D4AF37"></i><i style="background:#F2D58A"></i><i style="background:#C9C9C9"></i></div></div><div class="bb">IBM Plex Sans Arabic 700 + Plus Jakarta Sans<span>الشعار أعلى المنتصف 78px بعرض 330px · ميدالية ذهبية · وسيطها OneRoyal</span></div></div>
-      <div class="bc"><div class="bh" style="background:#0D0D4B"><b style="color:#16E9D7">STARTRADER v3</b><div class="sws"><i style="background:#0D0D4B"></i><i style="background:#16E9D7"></i><i style="background:#FFFFFF"></i><i style="background:#BBD8FF"></i></div></div><div class="bb">IBM Plex Sans Arabic + Plus Jakarta Sans<span>سطر أبيض + سطر تركواز · motif الخط الفاصل التركوازي · الشعار ملف رسمي بلا توهج</span></div></div>
+      <div class="bc"><div class="bh" style="background:#0D0D4B"><b style="color:#16E9D7">STARTRADER v3</b><div class="sws"><i style="background:#0D0D4B"></i><i style="background:#16E9D7"></i><i style="background:#FFFFFF"></i><i style="background:#BBD8FF"></i></div></div><div class="bb">Tajawal 800 + Plus Jakarta Sans<span>سطر أبيض + سطر تركواز · motif الخط الفاصل التركوازي · بلا أيقونات · تحذير Trading CFDs carries a high level of risk.</span></div></div>
+      <div class="bc"><div class="bh" style="background:#081420"><b style="color:#C8FF00">Ultima Markets</b><div class="sws"><i style="background:#081420"></i><i style="background:#061731"></i><i style="background:#C8FF00"></i><i style="background:#FFFFFF"></i></div></div><div class="bb">Tajawal 800 + Plus Jakarta Sans<span>سطر أبيض + شريط ليموني مائل بنص كحلي · ليموني 5–10% فقط · تحذير Trading involves risks.</span></div></div>
+      <div class="bc"><div class="bh" style="background:#FFFFFF"><b style="color:#2E7D00">APC PRIME</b><div class="sws"><i style="background:#4CAF00"></i><i style="background:#2E7D00"></i><i style="background:#111111"></i><i style="background:#E9E9E9"></i></div></div><div class="bb">Cairo + Montserrat<span>هوية فاتحة: أبيض + أخضر · عنصر 3D واحد على قاعدة · عناوين خضراء بـ #2E7D00 للقراءة · لم نُنتج لها فيديو بعد</span></div></div>
     </div>
 
     <h3>الأصوات المعتمدة</h3>
     <div class="voices">
-      <div class="vc"><span class="tag">عراقي · ذكر</span><h3>مؤمل العباس</h3><div class="wave"><i style="height:10px"></i><i style="height:22px;animation-delay:.1s"></i><i style="height:28px;animation-delay:.2s"></i><i style="height:16px;animation-delay:.3s"></i><i style="height:24px;animation-delay:.4s"></i><i style="height:12px;animation-delay:.5s"></i><i style="height:20px;animation-delay:.6s"></i></div><span class="mono">27t8HdkwF7812XrcB2Ua</span><span class="muted" style="font-size:13.5px">QFX بوت التداول · 1R حساب السنت · ليش OneRoyal</span></div>
+      <div class="vc"><span class="tag">عراقي · ذكر</span><h3>مؤمل العباس</h3><div class="wave"><i style="height:10px"></i><i style="height:22px;animation-delay:.1s"></i><i style="height:28px;animation-delay:.2s"></i><i style="height:16px;animation-delay:.3s"></i><i style="height:24px;animation-delay:.4s"></i><i style="height:12px;animation-delay:.5s"></i><i style="height:20px;animation-delay:.6s"></i></div><span class="mono">27t8HdkwF7812XrcB2Ua</span><span class="muted" style="font-size:13.5px">QFX بوت التداول · 1R حساب السنت · ليش OneRoyal · شراكة Ultima · خطأ حجم الصفقة StarTrader</span></div>
       <div class="vc"><span class="tag">لبناني · أنثى</span><h3>Jasmine Lebanese</h3><div class="wave"><i style="height:14px"></i><i style="height:26px;animation-delay:.15s"></i><i style="height:18px;animation-delay:.3s"></i><i style="height:28px;animation-delay:.45s"></i><i style="height:12px;animation-delay:.6s"></i><i style="height:22px;animation-delay:.75s"></i><i style="height:16px;animation-delay:.9s"></i></div><span class="mono">2zZ1oe9n1ydzKsKbR0A5</span><span class="muted" style="font-size:13.5px">فيديو «الذهب يهبط» لـ VFX وQFX · نبرة مذيعة تحليلية</span></div>
     </div>
     <ul class="rules">
       <li>Eleven v4 مع علامات [curious] [confident] [warmly] [excited] أول كل سطر</li>
       <li>تسجيل واحد فقط في كل مرة</li>
+      <li>السرعة الطبيعية للصوت؛ ×1.18 كانت سريعة على حسين. نقصّ الوقفات الطويلة فقط</li>
+      <li>السكربت الرسمي يُكيَّف بلهجة الصوت («مو»، «الجاية») والنص على الشاشة يبقى فصيحاً</li>
       <li>بدون تشكيل، والأرقام مكتوبة كلمات باللهجة</li>
       <li>جمل قصيرة مفصولة بـ «…»</li>
       <li>صوت محايد بلا اسم شركة يصلح لأكثر من براند</li>
-      <li>الموسيقى 0.5–0.55 مع ducking، بدون «ووش»، ونقرة خفيفة عند ظهور الشارات</li>
+      <li>الموسيقى 0.5–0.55 مع ducking. بدون «ووش» للانتقالات؛ ووش خفيف للعناوين فقط إذا طلبه البريف. ضربة منخفضة عند الانهيار، ورنة عند الإشعار</li>
     </ul>
 
     <h3>الفيديوهات المنتجة</h3>
@@ -435,6 +485,8 @@ tr:last-child td{border-bottom:0}
         <tr><td>حساب السنت 10$</td><td>1R Partners × OneRoyal</td><td class="t">26.5s</td><td>عراقي</td><td class="mono">claude/1r-partners/oneroyal-cent-*</td></tr>
         <tr><td>بوت التداول المجاني</td><td>QFX</td><td class="t">31.5s</td><td>عراقي</td><td class="mono">claude/qfx/</td></tr>
         <tr><td>سبريد Vantage المنخفض</td><td>VFX</td><td class="t">28s</td><td>—</td><td class="mono">claude/vfx-vantage-*</td></tr>
+        <tr><td>شراكة مستدامة (Reels)</td><td>Ultima Markets</td><td class="t">24.5s</td><td>عراقي</td><td class="mono">videos/ultima-partnership-reel-vo.mp4</td></tr>
+        <tr><td>أكبر خطأ: تكبير الحجم بعد الخسارة</td><td>StarTrader Partners</td><td class="t">33.2s</td><td>عراقي</td><td class="mono">videos/startrader-risk-reel.mp4</td></tr>
         <tr><td>STARTRADER Brand Film</td><td>StarTrader</td><td class="t">22s</td><td>موسيقى</td><td class="mono">claude/startrader-v3/</td></tr>
       </tbody>
     </table></div>
@@ -449,6 +501,8 @@ tr:last-child td{border-bottom:0}
       <li>لا أرقام من بيانات الشركة الصحفية وحدها (جوائز…)</li>
       <li>المحتوى التحليلي يختم بـ «ليس توصية» + تحذير المخاطر</li>
       <li>الشعار ملف رسمي فقط؛ النص المؤقت يُستبدل قبل النشر</li>
+      <li>أي حاسبة أو مثال رقمي يُتحقق من حسابه ويُكتب «مثال توضيحي»</li>
+      <li>معرّف التيليغرام أو الحساب لا يُخترع؛ يُترك عاماً حتى يرسله حسين</li>
     </ul>
   </section>
 
