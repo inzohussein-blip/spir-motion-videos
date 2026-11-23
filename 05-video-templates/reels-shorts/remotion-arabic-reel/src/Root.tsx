@@ -14,13 +14,7 @@ const defaultProps: Props = {
     { text: "من المشاهدين يقررون", accent: "في أول ٣ ثوانٍ" },
     { text: "ابدأ فيديوك بخطّاف", accent: "قوي" },
   ],
-  cta: "تابعنا للمزيد",
-  brand: "SPIR",
-  colors: {
-    background: "#0B0B14",
-    primary: "#FFFFFF",
-    accent: "#7C5CFF",
-  },
+  brandId: "spir-default",
 };
 
 export const RemotionRoot: React.FC = () => {

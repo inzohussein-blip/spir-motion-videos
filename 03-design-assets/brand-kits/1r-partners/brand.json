@@ -1,0 +1,35 @@
+{
+  "id": "1r-partners",
+  "name": "1R Partners",
+  "status": "draft",
+  "industry": "",
+  "colors": {
+    "background": "#101418",
+    "primary": "#FFFFFF",
+    "accent": "#2F80ED"
+  },
+  "typography": {
+    "fontFamily": "Cairo",
+    "headingWeight": "800",
+    "bodyWeight": "400"
+  },
+  "logo": {
+    "text": "1R PARTNERS",
+    "file": null
+  },
+  "voice": {
+    "language": "ar",
+    "dialect": "",
+    "tone": "",
+    "avoid": []
+  },
+  "platforms": ["instagram"],
+  "social": {
+    "instagram": "1r_partners"
+  },
+  "cta": "تابعنا للمزيد",
+  "notes": [
+    "مصدر البيانات: حساب Metricool (علامة 1r_partners، المنطقة الزمنية Asia/Baghdad).",
+    "الألوان مؤقتة ومحايدة — يجب استبدالها بألوان الشعار الفعلية قبل اعتماد أي فيديو."
+  ]
+}

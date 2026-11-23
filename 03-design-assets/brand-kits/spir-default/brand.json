@@ -1,0 +1,30 @@
+{
+  "id": "spir-default",
+  "name": "SPIR",
+  "status": "approved",
+  "industry": "الأسلوب الافتراضي — يُستخدم عند عدم تحديد عميل",
+  "colors": {
+    "background": "#0B0B14",
+    "primary": "#FFFFFF",
+    "accent": "#7C5CFF"
+  },
+  "typography": {
+    "fontFamily": "Cairo",
+    "headingWeight": "800",
+    "bodyWeight": "400"
+  },
+  "logo": {
+    "text": "SPIR",
+    "file": null
+  },
+  "voice": {
+    "language": "ar",
+    "dialect": "فصحى مبسّطة",
+    "tone": "حماسية وواضحة",
+    "avoid": []
+  },
+  "platforms": ["instagram", "tiktok", "youtube-shorts"],
+  "social": {},
+  "cta": "تابعنا للمزيد",
+  "notes": []
+}

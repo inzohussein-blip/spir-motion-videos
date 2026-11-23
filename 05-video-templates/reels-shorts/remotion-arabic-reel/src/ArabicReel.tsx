@@ -1,6 +1,4 @@
 import { z } from "zod";
-import { zColor } from "@remotion/zod-types";
-import { loadFont } from "@remotion/google-fonts/Cairo";
 import {
   AbsoluteFill,
   Easing,
@@ -11,27 +9,22 @@ import {
   useVideoConfig,
 } from "remotion";
 
-const { fontFamily } = loadFont("normal", {
-  weights: ["400", "800"],
-  subsets: ["arabic", "latin"],
-});
+import { BRANDS, BRAND_IDS, Brand } from "./brands";
+import { getFont, LoadedFont } from "./fonts";
 
 export const SCENE_FRAMES = 60; // ثانيتان لكل مشهد بمعدل 30fps
 export const OUTRO_FRAMES = 60;
 
 export const reelSchema = z.object({
   scenes: z.array(z.object({ text: z.string(), accent: z.string() })).min(1),
-  cta: z.string(),
-  brand: z.string(),
-  colors: z.object({
-    background: zColor(),
-    primary: zColor(),
-    accent: zColor(),
-  }),
+  /** الشركة — تحدد الألوان والخط والشعار تلقائياً */
+  brandId: z.enum(BRAND_IDS),
+  /** اختياري: يتجاوز الدعوة للإجراء الافتراضية للشركة */
+  cta: z.string().optional(),
 });
 
 type Props = z.infer<typeof reelSchema>;
-type Colors = Props["colors"];
+type Colors = Brand["colors"];
 
 /** خلفية بدوائر ضوئية تتحرك ببطء */
 const Background: React.FC<{ colors: Colors }> = ({ colors }) => {
@@ -50,10 +43,11 @@ const Background: React.FC<{ colors: Colors }> = ({ colors }) => {
 };
 
 /** مشهد: سطر رئيسي ينزلق للأعلى + كلمة مميزة تظهر بنبضة */
-const Scene: React.FC<{ text: string; accent: string; colors: Colors }> = ({
+const Scene: React.FC<{ text: string; accent: string; colors: Colors; font: LoadedFont }> = ({
   text,
   accent,
   colors,
+  font,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -77,7 +71,7 @@ const Scene: React.FC<{ text: string; accent: string; colors: Colors }> = ({
         justifyContent: "center",
         alignItems: "center",
         direction: "rtl",
-        fontFamily,
+        fontFamily: font.fontFamily,
         opacity: exit,
         transform: `scale(${0.95 + exit * 0.05})`,
         padding: 80,
@@ -88,7 +82,7 @@ const Scene: React.FC<{ text: string; accent: string; colors: Colors }> = ({
         style={{
           color: colors.primary,
           fontSize: 96,
-          fontWeight: 400,
+          fontWeight: font.body,
           opacity: enter,
           transform: `translateY(${(1 - enter) * 80}px)`,
         }}
@@ -100,7 +94,7 @@ const Scene: React.FC<{ text: string; accent: string; colors: Colors }> = ({
           style={{
             color: colors.accent,
             fontSize: 140,
-            fontWeight: 800,
+            fontWeight: font.heading,
             lineHeight: 1.45,
             transform: `scale(${accentPop})`,
           }}
@@ -124,10 +118,11 @@ const Scene: React.FC<{ text: string; accent: string; colors: Colors }> = ({
 };
 
 /** الخاتمة: الشعار + الدعوة للإجراء */
-const Outro: React.FC<{ cta: string; brand: string; colors: Colors }> = ({
+const Outro: React.FC<{ cta: string; logoText: string; colors: Colors; font: LoadedFont }> = ({
   cta,
-  brand,
+  logoText,
   colors,
+  font,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -136,18 +131,26 @@ const Outro: React.FC<{ cta: string; brand: string; colors: Colors }> = ({
 
   return (
     <AbsoluteFill
-      style={{ justifyContent: "center", alignItems: "center", fontFamily, direction: "rtl" }}
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        fontFamily: font.fontFamily,
+        direction: "rtl",
+        padding: 80,
+        textAlign: "center",
+      }}
     >
       <div
         style={{
-          fontSize: 170,
-          fontWeight: 800,
-          letterSpacing: 12,
+          fontSize: logoText.length > 8 ? 120 : 170,
+          fontWeight: font.heading,
+          letterSpacing: 8,
+          lineHeight: 1.1,
           color: colors.primary,
           transform: `scale(${logo}) rotate(${(1 - logo) * -10}deg)`,
         }}
       >
-        {brand}
+        {logoText}
       </div>
       <div
         style={{
@@ -157,7 +160,7 @@ const Outro: React.FC<{ cta: string; brand: string; colors: Colors }> = ({
           background: colors.accent,
           color: colors.primary,
           fontSize: 64,
-          fontWeight: 800,
+          fontWeight: font.heading,
           opacity: ctaIn,
           transform: `translateY(${(1 - ctaIn) * 60}px)`,
         }}
@@ -168,17 +171,20 @@ const Outro: React.FC<{ cta: string; brand: string; colors: Colors }> = ({
   );
 };
 
-export const ArabicReel: React.FC<Props> = ({ scenes, cta, brand, colors }) => {
+export const ArabicReel: React.FC<Props> = ({ scenes, brandId, cta }) => {
+  const brand: Brand = BRANDS[brandId];
+  const { colors } = brand;
+  const font = getFont(brand.typography.fontFamily);
   return (
     <AbsoluteFill>
       <Background colors={colors} />
       {scenes.map((s, i) => (
         <Sequence key={i} from={i * SCENE_FRAMES} durationInFrames={SCENE_FRAMES}>
-          <Scene text={s.text} accent={s.accent} colors={colors} />
+          <Scene text={s.text} accent={s.accent} colors={colors} font={font} />
         </Sequence>
       ))}
       <Sequence from={scenes.length * SCENE_FRAMES} durationInFrames={OUTRO_FRAMES}>
-        <Outro cta={cta} brand={brand} colors={colors} />
+        <Outro cta={cta ?? brand.cta} logoText={brand.logo.text} colors={colors} font={font} />
       </Sequence>
     </AbsoluteFill>
   );

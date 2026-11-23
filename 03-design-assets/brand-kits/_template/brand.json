@@ -1,0 +1,32 @@
+{
+  "id": "client-id",
+  "name": "اسم الشركة",
+  "status": "draft",
+  "industry": "",
+  "colors": {
+    "background": "#0B0B14",
+    "primary": "#FFFFFF",
+    "accent": "#7C5CFF"
+  },
+  "typography": {
+    "fontFamily": "Cairo",
+    "headingWeight": "800",
+    "bodyWeight": "400"
+  },
+  "logo": {
+    "text": "BRAND",
+    "file": null
+  },
+  "voice": {
+    "language": "ar",
+    "dialect": "فصحى مبسّطة",
+    "tone": "واضحة وواثقة",
+    "avoid": []
+  },
+  "platforms": ["instagram"],
+  "social": {
+    "instagram": ""
+  },
+  "cta": "تابعنا للمزيد",
+  "notes": []
+}

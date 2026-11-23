@@ -12,7 +12,7 @@
 | المقاس | 1080x1920 (9:16) |
 | المدة | ثانيتان لكل مشهد + ثانيتان للخاتمة (افتراضياً 8 ث) |
 | FPS | 30 |
-| الخط | Cairo (Google Fonts) يُحمّل تلقائياً |
+| الهوية | من brand kit الشركة (ألوان، خط، شعار) |
 | الترخيص | خاص |
 | الوسوم | `reel` `arabic` `kinetic-typography` `remotion` |
 
@@ -27,23 +27,26 @@ npm run still      # صورة معاينة من الإطار 45
 ```
 
 ## التخصيص
-عدّل `defaultProps` في `src/Root.tsx`، أو من لوحة Props داخل Studio:
+اختر الشركة بـ `brandId`، فتُطبّق ألوانها وخطها وشعارها والدعوة للإجراء الخاصة بها تلقائياً من
+`03-design-assets/brand-kits/<id>/brand.json`:
 
-```ts
-scenes: [
-  { text: "هل تعلم؟", accent: "٩٠٪" },          // سطر عادي + كلمة مميزة
-  { text: "من المشاهدين يقررون", accent: "في أول ٣ ثوانٍ" },
-],
-cta: "تابعنا للمزيد",
-brand: "SPIR",
-colors: { background: "#0B0B14", primary: "#FFFFFF", accent: "#7C5CFF" },
+```json
+{
+  "brandId": "1r-partners",
+  "scenes": [
+    { "text": "شريكك في", "accent": "النمو" },
+    { "text": "من المشاهدين يقررون", "accent": "في أول ٣ ثوانٍ" }
+  ],
+  "cta": "اختياري: يتجاوز الدعوة الافتراضية للشركة"
+}
 ```
 
-أو مرّر الخصائص عند التصدير دون تعديل الكود:
 ```bash
-npx remotion render ArabicReel out/promo.mp4 --props=my-props.json
+npx remotion render ArabicReel out/promo.mp4 --props=props.json
 ```
 
+- إضافة شركة جديدة: راجع `03-design-assets/brand-kits/README.md` ثم سجّلها في `src/brands.ts`.
+- الخطوط المدعومة (`src/fonts.ts`): Cairo، Tajawal، Almarai، IBM Plex Sans Arabic، Readex Pro.
 - لتغيير مدة المشهد: `SCENE_FRAMES` في `src/ArabicReel.tsx` (30 إطار = ثانية).
 - لإضافة موسيقى: ضع الملف في `public/` واستخدم `<Audio src={staticFile("music.mp3")} />` داخل `ArabicReel`.
 

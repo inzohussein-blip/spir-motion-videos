@@ -3,6 +3,9 @@
 مكتبة مركزية لحفظ كل ما يلزم لإنتاج **فيديوهات احترافية بمساعدة الذكاء الاصطناعي**:
 قوالب موشن، حركات، تصاميم، أصوات، قوالب فيديو جاهزة، برومبتات، وسكلز (Skills) للأتمتة.
 
+> 🤖 **العمل مع Claude:** ملف [`CLAUDE.md`](CLAUDE.md) يحتوي معايير الإنتاج ويقرؤه Claude تلقائياً في كل جلسة،
+> وفيه: تحديد الشركة، المقاسات، المناطق الآمنة، قواعد النصوص والإيقاع والصوت، وخطوات التحقق قبل التسليم.
+
 ---
 
 ## 📁 هيكل المستودع
@@ -24,7 +27,7 @@ spir-motion-videos/
 │   ├── overlays/              طبقات تأثيرات
 │   ├── icons-shapes/          أيقونات وأشكال
 │   ├── fonts/                 خطوط
-│   └── brand-kits/            هويات بصرية
+│   └── brand-kits/            هويات الشركات (عميل لكل مجلد)
 ├── 04-audio/                الصوتيات
 │   ├── sfx/                   مؤثرات صوتية
 │   ├── music/                 موسيقى خلفية
@@ -51,7 +54,8 @@ spir-motion-videos/
 
 | العنصر | المكان | الوصف |
 |---|---|---|
-| 🎞️ قالب Reel عربي | [`05-video-templates/reels-shorts/remotion-arabic-reel`](05-video-templates/reels-shorts/remotion-arabic-reel) | فيديو 9:16 بحركات نصوص، يُعدّل من الكود (Remotion) |
+| 🏢 هويات الشركات | [`03-design-assets/brand-kits`](03-design-assets/brand-kits) | `spir-default` (افتراضي)، `1r-partners` (مسودة) |
+| 🎞️ قالب Reel عربي | [`05-video-templates/reels-shorts/remotion-arabic-reel`](05-video-templates/reels-shorts/remotion-arabic-reel) | فيديو 9:16 بحركات نصوص، يتلوّن بهوية الشركة تلقائياً (`brandId`) |
 | 🧠 سكل كتابة السكربت | [`07-skills/video-script-writer`](07-skills/video-script-writer/SKILL.md) | سكربت مقسّم لمشاهد بالتوقيت والتعليق الصوتي |
 | 🧠 سكل البرومبتات | [`07-skills/storyboard-to-prompts`](07-skills/storyboard-to-prompts/SKILL.md) | تحويل المشاهد إلى برومبتات صور وفيديو بأسلوب موحّد |
 | 💬 برومبتات أمثلة | [`06-ai-prompts`](06-ai-prompts) | صورة سينمائية، لقطة منتج، سكربت Reel |
