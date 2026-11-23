@@ -1,6 +1,12 @@
 import { CalculateMetadataFunction, Composition } from "remotion";
 import { z } from "zod";
 import { ArabicReel, reelSchema, SCENE_FRAMES, OUTRO_FRAMES } from "./ArabicReel";
+import {
+  CaptionedReel,
+  CaptionedReelProps,
+  captionedReelSchema,
+  loadCaptions,
+} from "./CaptionedReel";
 
 type Props = z.infer<typeof reelSchema>;
 
@@ -17,18 +23,43 @@ const defaultProps: Props = {
   brandId: "spir-default",
 };
 
+const captionedDefaults: CaptionedReelProps = {
+  brandId: "spir-default",
+  audio: "demo-voiceover.mp3",
+  words: "demo-words.json",
+  maxWordsPerPage: 3,
+};
+
+const calculateCaptioned: CalculateMetadataFunction<CaptionedReelProps> = async ({ props }) => {
+  const { pages, seconds } = await loadCaptions(props);
+  return { durationInFrames: Math.ceil(seconds * 30), props: { ...props, pages } };
+};
+
 export const RemotionRoot: React.FC = () => {
   return (
-    <Composition
-      id="ArabicReel"
-      component={ArabicReel}
-      schema={reelSchema}
-      defaultProps={defaultProps}
-      width={1080}
-      height={1920}
-      fps={30}
-      durationInFrames={1}
-      calculateMetadata={calculateMetadata}
-    />
+    <>
+      <Composition
+        id="ArabicReel"
+        component={ArabicReel}
+        schema={reelSchema}
+        defaultProps={defaultProps}
+        width={1080}
+        height={1920}
+        fps={30}
+        durationInFrames={1}
+        calculateMetadata={calculateMetadata}
+      />
+      <Composition
+        id="CaptionedReel"
+        component={CaptionedReel}
+        schema={captionedReelSchema}
+        defaultProps={captionedDefaults}
+        width={1080}
+        height={1920}
+        fps={30}
+        durationInFrames={1}
+        calculateMetadata={calculateCaptioned}
+      />
+    </>
   );
 };

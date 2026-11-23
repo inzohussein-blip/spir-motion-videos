@@ -56,11 +56,12 @@ spir-motion-videos/
 |---|---|---|
 | 🏢 هويات الشركات | [`03-design-assets/brand-kits`](03-design-assets/brand-kits) | `spir-default` (افتراضي)، `1r-partners` (مسودة) |
 | 🎞️ قالب Reel عربي | [`05-video-templates/reels-shorts/remotion-arabic-reel`](05-video-templates/reels-shorts/remotion-arabic-reel) | فيديو 9:16 بحركات نصوص، يتلوّن بهوية الشركة تلقائياً (`brandId`) |
+| 🎙️ ترجمة متزامنة مع الصوت | `remotion-arabic-reel` ← `CaptionedReel` | تعليق صوتي من ElevenLabs + كلمات تُبرز لحظة نطقها |
 | 🧠 سكل كتابة السكربت | [`07-skills/video-script-writer`](07-skills/video-script-writer/SKILL.md) | سكربت مقسّم لمشاهد بالتوقيت والتعليق الصوتي |
 | 🧠 سكل البرومبتات | [`07-skills/storyboard-to-prompts`](07-skills/storyboard-to-prompts/SKILL.md) | تحويل المشاهد إلى برومبتات صور وفيديو بأسلوب موحّد |
 | 💬 برومبتات أمثلة | [`06-ai-prompts`](06-ai-prompts) | صورة سينمائية، لقطة منتج، سكربت Reel |
 
-**مسار عمل سريع:** سكربت (`video-script-writer`) ← برومبتات (`storyboard-to-prompts`) ← توليد المرئيات ← تركيب في قالب Remotion ← تصدير.
+**مسار عمل سريع:** سكربت (`video-script-writer`) ← تعليق صوتي وتوقيتات (ElevenLabs) ← برومبتات (`storyboard-to-prompts`) ← توليد المرئيات ← تركيب في قالب Remotion بهوية الشركة ← تصدير.
 
 ---
 

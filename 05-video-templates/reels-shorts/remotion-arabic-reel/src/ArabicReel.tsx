@@ -27,7 +27,7 @@ type Props = z.infer<typeof reelSchema>;
 type Colors = Brand["colors"];
 
 /** خلفية بدوائر ضوئية تتحرك ببطء */
-const Background: React.FC<{ colors: Colors }> = ({ colors }) => {
+export const Background: React.FC<{ colors: Colors }> = ({ colors }) => {
   const frame = useCurrentFrame();
   const x = 50 + Math.sin(frame / 40) * 20;
   const y = 40 + Math.cos(frame / 55) * 15;
@@ -118,7 +118,7 @@ const Scene: React.FC<{ text: string; accent: string; colors: Colors; font: Load
 };
 
 /** الخاتمة: الشعار + الدعوة للإجراء */
-const Outro: React.FC<{ cta: string; logoText: string; colors: Colors; font: LoadedFont }> = ({
+export const Outro: React.FC<{ cta: string; logoText: string; colors: Colors; font: LoadedFont }> = ({
   cta,
   logoText,
   colors,
