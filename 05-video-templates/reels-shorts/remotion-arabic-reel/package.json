@@ -1,0 +1,25 @@
+{
+  "name": "remotion-arabic-reel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "قالب Reel عربي 9:16 بحركات نصوص (Kinetic Typography) — Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render ArabicReel out/reel.mp4",
+    "still": "remotion still ArabicReel out/preview.png --frame=45",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "@remotion/google-fonts": "4.0.536",
+    "@remotion/zod-types": "4.0.536",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.536",
+    "zod": "3.22.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

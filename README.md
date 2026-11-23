@@ -47,6 +47,19 @@ spir-motion-videos/
 
 ---
 
+## ✨ المحتوى الحالي
+
+| العنصر | المكان | الوصف |
+|---|---|---|
+| 🎞️ قالب Reel عربي | [`05-video-templates/reels-shorts/remotion-arabic-reel`](05-video-templates/reels-shorts/remotion-arabic-reel) | فيديو 9:16 بحركات نصوص، يُعدّل من الكود (Remotion) |
+| 🧠 سكل كتابة السكربت | [`07-skills/video-script-writer`](07-skills/video-script-writer/SKILL.md) | سكربت مقسّم لمشاهد بالتوقيت والتعليق الصوتي |
+| 🧠 سكل البرومبتات | [`07-skills/storyboard-to-prompts`](07-skills/storyboard-to-prompts/SKILL.md) | تحويل المشاهد إلى برومبتات صور وفيديو بأسلوب موحّد |
+| 💬 برومبتات أمثلة | [`06-ai-prompts`](06-ai-prompts) | صورة سينمائية، لقطة منتج، سكربت Reel |
+
+**مسار عمل سريع:** سكربت (`video-script-writer`) ← برومبتات (`storyboard-to-prompts`) ← توليد المرئيات ← تركيب في قالب Remotion ← تصدير.
+
+---
+
 ## 🧭 قواعد التنظيم
 
 ### تسمية الملفات
@@ -87,11 +100,12 @@ logo-reveal-glitch/
 ## 📦 الملفات الكبيرة
 
 ملفات الفيديو والمشاريع (`.mp4`، `.mov`، `.aep`، `.prproj`، `.wav`) كبيرة الحجم. الحد الأقصى لملف واحد في GitHub هو 100MB.
-- يُنصح بتفعيل **Git LFS**:
+- **Git LFS مُفعّل** في المستودع عبر `.gitattributes` للصيغ: فيديو (`mp4` `mov` `webm`)، صوت (`wav` `mp3`)، مشاريع (`aep` `prproj` `mogrt` `drp`)، تصاميم (`psd` `ai` `fig`)، خطوط، و`zip`.
+- قبل أول رفع على جهازك نفّذ مرة واحدة:
   ```bash
   git lfs install
-  git lfs track "*.mp4" "*.mov" "*.aep" "*.prproj" "*.wav" "*.psd"
   ```
+- صور المعاينة (`preview.gif`) تبقى خارج LFS، فاجعل حجمها أقل من 5MB.
 - أو احفظ الملفات الضخمة في تخزين سحابي وضع الرابط داخل `README.md` الخاص بالعنصر.
 
 ---
