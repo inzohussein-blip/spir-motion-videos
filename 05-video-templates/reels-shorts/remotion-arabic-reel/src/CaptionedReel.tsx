@@ -13,6 +13,7 @@ import { getFont, LoadedFont } from "./fonts";
 import { Captions } from "./Captions";
 import { CaptionPage, parseWords, toPages } from "./captions";
 import { Background, Outro } from "./ArabicReel";
+import { CameraFx, FxCue } from "./fx/camera";
 
 export const OUTRO_SECONDS = 2;
 
@@ -25,6 +26,8 @@ export const captionedReelSchema = z.object({
   /** حد أقصى للكلمات في سطر الترجمة */
   maxWordsPerPage: z.number().int().min(1).max(6),
   cta: z.string().optional(),
+  /** مؤثرات تلقائية: حبيبات فيلم خفيفة + ضربة زوم صغيرة مع بداية كل سطر ترجمة */
+  autoFx: z.boolean().optional(),
 });
 
 export type CaptionedReelProps = z.infer<typeof captionedReelSchema> & {
@@ -62,14 +65,22 @@ const Watermark: React.FC<{ text: string; colors: Brand["colors"]; font: LoadedF
   );
 };
 
-export const CaptionedReel: React.FC<CaptionedReelProps> = ({ brandId, audio, pages = [], cta }) => {
+/** حبيبات طوال الفيديو + ضربة صغيرة على كل سطر جديد (أقوى قليلاً على الأول) + ضربة على الخاتمة */
+export const autoCues = (pages: CaptionPage[], fps: number, durationInFrames: number, outroFrames: number): FxCue[] => [
+  { fx: "grain", f: 0, dur: durationInFrames, amt: 0.03, fade: 1 },
+  ...pages.map((p, i): FxCue => ({ fx: "punch", f: Math.round(p.start * fps), dur: 6, amt: i === 0 ? 0.035 : 0.018, blur: 1.2 })),
+  { fx: "punch", f: durationInFrames - outroFrames, dur: 8, amt: 0.04, blur: 2 },
+];
+
+export const CaptionedReel: React.FC<CaptionedReelProps> = ({ brandId, audio, pages = [], cta, autoFx = true }) => {
   const brand: Brand = BRANDS[brandId];
   const font = getFont(brand.typography.fontFamily);
   const { fps, durationInFrames } = useVideoConfig();
   const outroFrames = OUTRO_SECONDS * fps;
+  const cues = autoFx ? autoCues(pages, fps, durationInFrames, outroFrames) : [];
 
   return (
-    <AbsoluteFill>
+    <CameraFx cues={cues}>
       <Background colors={brand.colors} />
       <Audio src={staticFile(audio)} />
       <Sequence durationInFrames={durationInFrames - outroFrames}>
@@ -79,7 +90,7 @@ export const CaptionedReel: React.FC<CaptionedReelProps> = ({ brandId, audio, pa
       <Sequence from={durationInFrames - outroFrames}>
         <Outro cta={cta ?? brand.cta} logoText={brand.logo.text} colors={brand.colors} font={font} />
       </Sequence>
-    </AbsoluteFill>
+    </CameraFx>
   );
 };
 

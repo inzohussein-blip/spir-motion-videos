@@ -7,6 +7,7 @@ import {
   captionedReelSchema,
   loadCaptions,
 } from "./CaptionedReel";
+import { FxShowcase, fxShowcaseSchema, FX_SHOWCASE_FRAMES } from "./FxShowcase";
 
 type Props = z.infer<typeof reelSchema>;
 
@@ -28,6 +29,7 @@ const captionedDefaults: CaptionedReelProps = {
   audio: "demo-voiceover.mp3",
   words: "demo-words.json",
   maxWordsPerPage: 3,
+  autoFx: true,
 };
 
 const calculateCaptioned: CalculateMetadataFunction<CaptionedReelProps> = async ({ props }) => {
@@ -59,6 +61,16 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         durationInFrames={1}
         calculateMetadata={calculateCaptioned}
+      />
+      <Composition
+        id="FxShowcase"
+        component={FxShowcase}
+        schema={fxShowcaseSchema}
+        defaultProps={{ brandId: "spir-default" as const, title: "بووم!" }}
+        width={1080}
+        height={1920}
+        fps={30}
+        durationInFrames={FX_SHOWCASE_FRAMES}
       />
     </>
   );
