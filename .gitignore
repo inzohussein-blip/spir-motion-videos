@@ -1,0 +1,28 @@
+# أنظمة التشغيل
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# After Effects / Premiere
+*.aep.bak
+Adobe Premiere Pro Auto-Save/
+Adobe After Effects Auto-Save/
+*Media Cache*/
+*.cfa
+*.pek
+*.ims
+*.mcdb
+
+# DaVinci Resolve
+CacheClip/
+.gallery/
+
+# مخرجات الرندر المؤقتة
+renders/tmp/
+*.tmp
+
+# Node / Remotion
+node_modules/
+out/
+.env
+.env.*
