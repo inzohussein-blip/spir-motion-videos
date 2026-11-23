@@ -1,0 +1,1047 @@
+<title>مكتبة عناصر الموشن</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: لوحة مرجعية — شريط مصدر، ثم بطاقات عناصر حية في شبكة، ثم المناطق الآمنة، ثم الستوري بورد المحسّن */
+:root{
+  --bg:#F6F3F4; --surface:#FFFFFF; --ink:#1B1518; --muted:#6E6267; --line:#E3DADD;
+  --brand:#B8264F; --brand-soft:#F4DCE3; --money:#2E9E6A; --loss:#D23A3A;
+  --font-display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --font-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141012; --surface:#1E181B; --ink:#F2ECEE; --muted:#A8999F; --line:#352B30;
+  --brand:#E04B73; --brand-soft:#3A1C26; --money:#45C08A; --loss:#F06060; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141012; --surface:#1E181B; --ink:#F2ECEE; --muted:#A8999F; --line:#352B30;
+  --brand:#E04B73; --brand-soft:#3A1C26; --money:#45C08A; --loss:#F06060; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.75}
+.wrap{max-width:1080px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(28px,5vw,42px);font-weight:700}
+h2{font-size:22px;font-weight:600;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:14px;height:14px;border:2px solid var(--brand);border-radius:50%}
+h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:65ch}
+.muted{color:var(--muted)}
+.mono{font-family:var(--font-mono);font-size:12.5px;direction:ltr;unicode-bidi:isolate}
+header{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:13px;color:var(--brand);font-weight:600;letter-spacing:.02em}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:13px;color:var(--muted);background:var(--surface)}
+section{display:flex;flex-direction:column;gap:18px}
+.note{border-inline-start:3px solid var(--brand);padding:10px 14px;background:var(--brand-soft);border-radius:0 6px 6px 0;font-size:14px}
+
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sw i{display:block;height:64px}
+.sw div{padding:8px 12px;display:flex;flex-direction:column;gap:2px}
+.sw b{font-size:14px}
+.sw span{font-size:12.5px;color:var(--muted)}
+
+/* motif cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-width:0}
+.stage{height:210px;border-bottom:1px solid var(--line);display:grid;place-items:center;position:relative;overflow:hidden;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/28px 28px,var(--surface)}
+.stage.plain{background:var(--surface)}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px}
+.spec dt{color:var(--muted)}
+.spec dd{margin:0}
+.tag{align-self:flex-start;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-weight:600}
+.tag.fix{background:color-mix(in srgb,var(--money) 15%,transparent);color:var(--money)}
+.replay{position:absolute;inset-inline-start:10px;top:10px;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;padding:2px 10px;cursor:pointer}
+.replay:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* 1 corner brackets */
+.bracket{position:relative;padding:14px 26px;font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--ink)}
+.bracket b{position:absolute;width:14px;height:14px;border-color:var(--ink);border-style:solid;border-width:0}
+.bracket .tl{top:0;left:0;border-top-width:2px;border-left-width:2px}
+.bracket .tr{top:0;right:0;border-top-width:2px;border-right-width:2px}
+.bracket .bl{bottom:0;left:0;border-bottom-width:2px;border-left-width:2px}
+.bracket .br{bottom:0;right:0;border-bottom-width:2px;border-right-width:2px}
+.run .bracket .tl,.run .bracket .bl{animation:inL .5s cubic-bezier(.22,1,.36,1) both}
+.run .bracket .tr,.run .bracket .br{animation:inR .5s cubic-bezier(.22,1,.36,1) both}
+.run .bracket span{display:inline-block;animation:rise .45s .25s cubic-bezier(.22,1,.36,1) both}
+@keyframes inL{from{transform:translateX(60px);opacity:0}}
+@keyframes inR{from{transform:translateX(-60px);opacity:0}}
+@keyframes rise{from{transform:translateY(14px);opacity:0;filter:blur(4px)}}
+.dot{position:absolute;border-radius:50%}
+.d1{width:9px;height:9px;background:var(--brand);top:30%;right:28%;animation:float 3s ease-in-out infinite}
+.d2{width:10px;height:10px;border:1.5px solid var(--muted);bottom:24%;left:30%;animation:float 3.6s .4s ease-in-out infinite}
+.d3{width:40px;height:2px;background:var(--line);border-radius:2px;top:22%;left:22%}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+/* 2 orbit ring */
+.orbit{position:relative;width:120px;height:120px;display:grid;place-items:center}
+.orbit svg{position:absolute;inset:0}
+.orbit .r1{animation:spin 6s linear infinite}
+.orbit .r2{animation:spin 9s linear infinite reverse}
+.orbit .core{width:76px;height:76px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 4px var(--brand) inset,0 6px 16px rgb(0 0 0 / .12);display:grid;place-items:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* 3 count ring */
+.rings{display:flex;gap:18px}
+.ring{width:72px;height:72px;position:relative;display:grid;place-items:center;font-family:var(--font-mono);font-weight:600;font-size:15px}
+.ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bgc{stroke:var(--line)}
+.ring .fg{stroke:var(--brand);stroke-linecap:round;stroke-dasharray:188.5;stroke-dashoffset:188.5;transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1)}
+
+/* 4 candles */
+.candles{display:flex;align-items:flex-end;gap:7px;height:130px;direction:ltr}
+.cd{width:12px;position:relative;border-radius:2px}
+.cd::before{content:"";position:absolute;left:5px;width:2px;top:-12px;bottom:-12px;background:inherit;border-radius:1px}
+.cd.up{background:var(--money)}
+.cd.dn{background:var(--loss)}
+.run .cd{animation:grow .35s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes grow{from{transform:scaleY(0);opacity:0}}
+
+/* 5 depth */
+.depth{position:absolute;inset:0}
+.bill{position:absolute;border-radius:6px;background:var(--money);box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--surface) 35%,transparent)}
+.bill::after{content:"";position:absolute;width:30%;aspect-ratio:1;border-radius:50%;left:35%;top:50%;transform:translateY(-50%);border:2px solid color-mix(in srgb,var(--surface) 45%,transparent)}
+.b-far{width:44px;height:22px;opacity:.45;animation:drift 5s linear infinite}
+.b-mid{width:70px;height:34px;opacity:.75;animation:drift 3.4s linear infinite}
+.b-near{width:120px;height:58px;filter:blur(1.5px);animation:drift 2s linear infinite}
+@keyframes drift{from{transform:translateY(-90px) rotate(-20deg)}to{transform:translateY(300px) rotate(40deg)}}
+.layerlabel{position:absolute;inset-inline-end:10px;bottom:10px;font-size:12px;color:var(--muted);background:var(--surface);padding:0 8px;border-radius:4px;border:1px solid var(--line)}
+
+/* 6 chaos stack */
+.chaos{position:relative;width:180px;height:140px}
+.mini{position:absolute;inset:0;margin:auto;width:120px;height:84px;background:var(--surface);border:1.5px solid var(--line);border-inline-start:5px solid var(--loss);border-radius:6px;box-shadow:0 6px 14px rgb(0 0 0 / .14);display:grid;place-items:center;font-size:12px;color:var(--muted)}
+.run .mini{animation:pile .4s cubic-bezier(.34,1.56,.64,1) both}
+.run .mini:nth-child(1){--r:-14deg;--x:-34px;--y:-14px;animation-delay:0s}
+.run .mini:nth-child(2){--r:9deg;--x:30px;--y:-8px;animation-delay:.18s}
+.run .mini:nth-child(3){--r:-4deg;--x:-12px;--y:14px;animation-delay:.36s}
+.run .mini:nth-child(4){--r:12deg;--x:22px;--y:20px;animation-delay:.54s}
+.mini{transform:translate(var(--x,0),var(--y,0)) rotate(var(--r,0))}
+@keyframes pile{from{transform:translate(var(--x),-160px) rotate(0);opacity:0}}
+.qm{position:absolute;font-family:var(--font-display);font-weight:700;color:var(--loss);font-size:28px}
+.run .qm{animation:pop .3s .8s both, shake .25s 1.1s 3}
+@keyframes pop{from{transform:scale(0)}}
+@keyframes shake{25%{translate:-3px 0}75%{translate:3px 0}}
+
+/* safe zone */
+.safe-wrap{display:grid;grid-template-columns:minmax(0,220px) 1fr;gap:24px;align-items:start}
+.phone{aspect-ratio:9/16;max-width:100%;border:2px solid var(--ink);border-radius:18px;position:relative;overflow:hidden;background:var(--surface)}
+.z{position:absolute;background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--loss) 22%,transparent) 0 6px,transparent 6px 12px);display:grid;place-items:center;font-size:11px;color:var(--loss);font-weight:600}
+.z-top{top:0;left:0;right:0;height:13%}
+.z-bot{bottom:0;left:0;right:0;height:19.8%}
+.z-right{top:13%;bottom:19.8%;right:0;width:11.1%}
+.z-left{top:13%;bottom:19.8%;left:0;width:5.5%}
+.ok{position:absolute;top:13%;bottom:19.8%;left:5.5%;right:11.1%;border:1.5px dashed var(--money);display:grid;place-items:center;text-align:center;font-size:12px;color:var(--money);font-weight:600}
+.safe-list{display:flex;flex-direction:column;gap:10px;min-width:0}
+.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:8px;font-size:14px}
+.row .mono{color:var(--brand)}
+
+/* storyboard */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{text-align:start;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--muted);background:color-mix(in srgb,var(--line) 35%,transparent)}
+td.t{font-family:var(--font-mono);font-size:13px;white-space:nowrap;direction:ltr;text-align:right}
+.stage-pill{font-size:12px;padding:1px 9px;border-radius:999px;white-space:nowrap}
+.p-pain{background:color-mix(in srgb,var(--loss) 15%,transparent);color:var(--loss)}
+.p-fix{background:color-mix(in srgb,var(--money) 15%,transparent);color:var(--money)}
+.p-brand{background:var(--brand-soft);color:var(--brand)}
+tr:last-child td{border-bottom:0}
+
+/* character */
+.arc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.st h3{display:flex;gap:8px;align-items:center}
+.st h3 small{font-family:var(--font-mono);font-size:12px;color:var(--muted);font-weight:400}
+
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 24px;padding:0;margin:0;list-style:none}
+.checks li{display:flex;gap:10px;font-size:14.5px}
+.checks li::before{content:"";flex:none;width:14px;height:14px;margin-top:6px;border:2px solid var(--brand);border-radius:3px}
+
+/* characters */
+.chars{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.scene{height:230px;background:#EEEBEC;border-bottom:1px solid var(--line);border-radius:12px 12px 0 0;overflow:hidden}
+.scene svg{width:100%;height:100%;display:block}
+.tb{transform-box:fill-box;transform-origin:center}
+.a-shake{animation:shk 2.4s ease-in-out infinite}
+@keyframes shk{0%,55%,100%{transform:translateX(0)}60%,70%,80%{transform:translateX(-2.5px)}65%,75%,85%{transform:translateX(2.5px)}}
+.a-bob{animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-3px)}}
+.a-tap{animation:tap .35s ease-in-out infinite alternate}
+@keyframes tap{to{transform:translateY(2px)}}
+.a-spin{animation:spin 6s linear infinite}
+.a-spin-r{animation:spin 9s linear infinite reverse}
+.a-point{transform-origin:0 0;transform-box:view-box;animation:point 2s ease-in-out infinite}
+@keyframes point{50%{transform:rotate(-6deg)}}
+.a-drop{animation:drop 1.8s ease-in infinite}
+@keyframes drop{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(16px);opacity:0}}
+.a-blink{animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* portraits */
+.portraits{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.pframe{aspect-ratio:8/9;max-width:100%;border-radius:12px 12px 0 0;overflow:hidden}
+.pframe svg{width:100%;height:100%;display:block}
+.blink{transform-box:fill-box;transform-origin:50% 0;animation:blk 4.5s infinite}
+@keyframes blk{0%,93%,100%{transform:scaleY(0)}96%{transform:scaleY(1)}}
+.breathe{transform-box:view-box;transform-origin:160px 360px;animation:brt 4s ease-in-out infinite}
+@keyframes brt{50%{transform:scale(1.012)}}
+.tilt{transform-box:view-box;transform-origin:160px 210px;animation:tlt 6s ease-in-out infinite}
+@keyframes tlt{50%{transform:rotate(-1.5deg)}}
+.floaty{animation:float 3.2s ease-in-out infinite}
+.recipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.rc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.tones{display:flex;gap:4px;direction:ltr}
+.tones i{width:26px;height:26px;border-radius:5px;display:block}
+
+/* faceless + geometric */
+.ping2{transform-box:fill-box;transform-origin:center;animation:ping 2.6s infinite}
+.trend{stroke-dasharray:100;animation:trendDraw 2.6s ease-in-out infinite}
+@keyframes trendDraw{0%,8%{stroke-dashoffset:100}70%,100%{stroke-dashoffset:0}}
+.finger{animation:fingerM 2.6s ease-in-out infinite}
+@keyframes fingerM{0%,8%{transform:translate(-160px,92px)}70%,100%{transform:translate(0,0)}}
+/* TF VIP motifs */
+.av{width:150px;height:150px}
+.run .av .avin{transform-box:fill-box;transform-origin:center;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both}
+.av .nm{animation:rise .4s .45s both}
+.brw{width:100%;max-width:280px;height:180px}
+.brw .cta{transform-box:fill-box;transform-origin:center;animation:ctaP 2.4s ease-in-out infinite}
+@keyframes ctaP{0%,60%,100%{transform:scale(1)}70%{transform:scale(.94)}80%{transform:scale(1.04)}}
+.brw .cur{animation:curM 2.4s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes curM{0%,15%{transform:translate(70px,40px)}60%,100%{transform:translate(0,0)}}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.ls{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.ls b{color:var(--loss);font-weight:600}
+.ls span{color:var(--money)}
+.tf-pal{display:flex;flex-wrap:wrap;gap:8px}
+.tf-pal span{display:flex;align-items:center;gap:6px;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:2px 10px 2px 4px;background:var(--surface)}
+.tf-pal i{width:18px;height:18px;border-radius:50%;display:block}
+.rv{position:relative;width:240px;height:140px}
+.rv .bgc2{position:absolute;inset:0;display:flex;align-items:flex-end;gap:6px;padding:10px;direction:ltr}
+.rv .bgc2 i{flex:1;background:#3FAFBF;opacity:.55;border-radius:2px}
+.run .rv .bgc2{animation:focusOut .6s .5s both}
+@keyframes focusOut{to{filter:blur(5px);opacity:.35}}
+.rv .logo{position:absolute;inset:0;margin:auto;width:150px;height:56px;border-radius:12px;background:var(--surface);box-shadow:0 8px 22px rgb(0 0 0 / .14);display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--ink)}
+.rv .logo b{width:30px;height:30px;border-radius:50%;background:conic-gradient(#3FAFBF 0 75%,#2A8C9A 0)}
+.run .rv .logo{animation:popIn .5s 1s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes popIn{from{transform:scale(.5);opacity:0}}
+.mm{width:100%;max-width:300px;height:190px}
+.mm .ln{stroke-dasharray:100;stroke-dashoffset:0}
+.run .mm .ln{animation:draw .5s both}
+@keyframes draw{from{stroke-dashoffset:100}}
+.run .mm .nd{animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both}
+.mm .nd{transform-box:fill-box;transform-origin:center}
+.fold{width:160px;height:150px}
+.fold .vid{transform-box:fill-box}
+.run .fold .vid{animation:riseOut .6s .4s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes riseOut{from{transform:translateY(46px)}}
+.ref{width:100%;max-width:290px;height:120px}
+.ref .env{animation:send 2.6s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes send{0%,10%{transform:translateX(0);opacity:0}20%{opacity:1}75%{transform:translateX(150px);opacity:1}85%,100%{transform:translateX(150px);opacity:0}}
+.ref .ping{transform-box:fill-box;transform-origin:center;animation:ping 2.6s infinite}
+@keyframes ping{0%,72%{transform:scale(1);opacity:0}78%{opacity:.7}100%{transform:scale(1.6);opacity:0}}
+
+/* ===== kit (v2) ===== */
+.dk{background:#0A0F1C!important;color:#fff}
+.dk .kf{position:absolute;inset:0;overflow:hidden}
+.floor{position:absolute;left:-50%;right:-50%;bottom:-40%;height:90%;background:linear-gradient(rgba(20,200,166,.45) 1.5px,transparent 1.5px) 0 0/40px 40px,linear-gradient(90deg,rgba(20,200,166,.45) 1.5px,transparent 1.5px) 0 0/40px 40px;transform:perspective(260px) rotateX(62deg);transform-origin:50% 0;animation:floorM 1.6s linear infinite;mask-image:linear-gradient(transparent,#000 40%)}
+@keyframes floorM{to{background-position:0 40px,0 40px}}
+.hz{position:absolute;left:0;right:0;top:52%;height:2px;background:linear-gradient(90deg,transparent,#84CC16,transparent);box-shadow:0 0 18px #84CC16}
+.pt{position:absolute;width:4px;height:4px;border-radius:50%;background:#F6DE8A;opacity:.7;animation:ptM 4s linear infinite}
+@keyframes ptM{from{transform:translateY(60px);opacity:0}30%{opacity:.8}to{transform:translateY(-160px);opacity:0}}
+.medal{width:150px;height:150px}
+.medal .r1{transform-origin:75px 75px;animation:spin 7s linear infinite}
+.medal .r2{transform-origin:75px 75px;animation:spin 3s linear infinite reverse}
+.medal .coin{transform-origin:75px 75px;animation:flipC 3.6s ease-in-out infinite}
+@keyframes flipC{0%,60%{transform:scaleX(1)}70%{transform:scaleX(.05)}80%{transform:scaleX(1)}}
+.sweep{position:absolute;top:-30%;bottom:-30%;width:70px;background:linear-gradient(90deg,transparent,rgba(246,222,138,.75),transparent);transform:skewX(-20deg);animation:swp 2.4s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes swp{0%{left:-30%}55%,100%{left:120%}}
+.scA,.scB{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:30px}
+.scA{animation:scA 2.4s steps(1) infinite}.scB{animation:scB 2.4s steps(1) infinite}
+@keyframes scA{0%,30%{opacity:1}31%,100%{opacity:0}}
+@keyframes scB{0%,30%{opacity:0}31%,100%{opacity:1}}
+.wr{font-family:var(--font-display);font-weight:700;font-size:34px;text-align:center;line-height:1.3}
+.wr i{display:inline-block;font-style:normal;animation:wIn 3s cubic-bezier(.22,1,.36,1) infinite both}
+.wr i:nth-child(2){animation-delay:.12s}.wr i:nth-child(3){animation-delay:.24s}.wr i:nth-child(4){animation-delay:.36s}
+@keyframes wIn{0%{opacity:0;transform:translateY(26px);filter:blur(6px)}22%,85%{opacity:1;transform:none;filter:none}100%{opacity:0}}
+.gold-t{background:linear-gradient(180deg,#FFF0C2,#E2B54A 55%,#A87A1C);-webkit-background-clip:text;background-clip:text;color:transparent}
+.scr{font-family:var(--font-mono);font-weight:700;font-size:30px;letter-spacing:6px;color:#7FB2FF;direction:ltr}
+.gl{width:230px;height:110px;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.02) 50%,rgba(0,0,0,.35));border:1.5px solid rgba(212,175,55,.5);display:flex;align-items:center;gap:14px;padding:0 18px;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.gl .shn{position:absolute;top:-20%;bottom:-20%;width:60px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);animation:swp 2.8s ease-in-out infinite}
+.gl b{font-family:var(--font-display);font-size:20px}.gl small{display:block;font-size:12px;color:#A9A39A;font-weight:400}
+.term3{width:210px;height:140px;border-radius:12px;background:#0B1430;border:1.5px solid #2A3E7A;transform:perspective(500px) rotateY(-22deg);overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.6);animation:tIn 3.2s cubic-bezier(.22,1,.36,1) infinite}
+@keyframes tIn{0%{transform:perspective(500px) rotateY(-60deg) translateX(80px);opacity:0}25%,90%{transform:perspective(500px) rotateY(-22deg);opacity:1}100%{opacity:0}}
+.term3 .tb2{height:24px;background:#111D42;display:flex;gap:5px;align-items:center;padding:0 8px;direction:ltr;font-size:10px;color:#C9D6F5}
+.term3 .tb2 i{width:6px;height:6px;border-radius:50%;background:#3A4A7A;display:block}
+.gauge{width:200px;height:120px}
+.gauge .nd{transform-origin:100px 100px;animation:ndl 3s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes ndl{0%{transform:rotate(-90deg)}40%,100%{transform:rotate(45deg)}}
+.yr{font-family:Montserrat,var(--font-display);font-weight:800;font-size:52px;direction:ltr}
+.tl2{width:230px;height:6px;border-radius:3px;background:#2A2A2A;position:relative;margin-top:10px;overflow:hidden}
+.tl2 i{position:absolute;right:0;top:0;bottom:0;background:#D4AF37;animation:tlW 3s ease-in-out infinite}
+@keyframes tlW{0%{width:0}60%,100%{width:100%}}
+.bdg{position:absolute;right:22px;top:26px;padding:6px 14px;border-radius:12px;font-weight:800;font-size:26px;direction:ltr;background:linear-gradient(180deg,#E5393B,#A91B1F);color:#fff;animation:bdP 3s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes bdP{0%,45%{transform:scale(0);opacity:0}60%,100%{transform:scale(1);opacity:1}}
+.chd{position:absolute;left:14px;right:14px;bottom:14px;height:120px}
+.chd path{stroke-dasharray:400;animation:chD 3s ease-in-out infinite}
+@keyframes chD{0%{stroke-dashoffset:400}50%,100%{stroke-dashoffset:0}}
+.sl{position:absolute;width:76px;height:34px;border-radius:10px;border:1.5px solid rgba(255,77,79,.65);background:rgba(40,10,14,.8);color:#FF4D4F;font-weight:800;font-size:14px;display:grid;place-items:center;direction:ltr;font-family:Montserrat,sans-serif;animation:slD 2.8s cubic-bezier(.34,1.56,.64,1) infinite both}
+@keyframes slD{0%{transform:translateY(-120px);opacity:0}25%,85%{transform:translateY(0) rotate(var(--r));opacity:1}100%{opacity:0}}
+.scs{display:flex;flex-direction:column;gap:8px;width:240px}
+.scs div{height:36px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);font-family:var(--font-display);font-size:15px;font-weight:700;display:flex;align-items:center;padding:0 12px;animation:scL 4.5s infinite}
+.scs div:nth-child(1){--c:#FF4D4F;animation-delay:0s}.scs div:nth-child(2){--c:#14C8A6;animation-delay:1.5s}.scs div:nth-child(3){--c:#3DDC97;animation-delay:3s}
+@keyframes scL{0%,33%{border-color:var(--c);box-shadow:0 0 0 2px var(--c)}34%,100%{border-color:rgba(255,255,255,.15);box-shadow:none}}
+.pipe{counter-reset:p;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;padding:0;margin:0;list-style:none}
+.pipe li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px;display:flex;flex-direction:column;gap:4px}
+.pipe li::before{content:counter(p);font-family:var(--font-mono);font-weight:600;color:var(--brand);font-size:13px}
+.pipe b{font-family:var(--font-display)}
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.bc{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column}
+.bc .bh{padding:16px;color:#fff;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.bc .bh b{font-family:var(--font-display);font-size:20px;letter-spacing:.5px}
+.bc .sws{display:flex;gap:6px;direction:ltr}.bc .sws i{width:24px;height:24px;border-radius:6px;display:block;border:1px solid rgba(255,255,255,.2)}
+.bc .bb{padding:12px 16px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.bc .bb span{color:var(--muted)}
+.voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.vc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.vc .wave{display:flex;gap:3px;align-items:center;height:30px;direction:ltr}
+.vc .wave i{width:4px;border-radius:2px;background:var(--brand);animation:wv 1.1s ease-in-out infinite}
+@keyframes wv{50%{transform:scaleY(.35)}}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 24px;padding:0;margin:0;list-style:none}
+.rules li{display:flex;gap:10px;font-size:14.5px}
+.rules li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:2px;background:var(--brand);transform:rotate(45deg)}
+.no li::before{background:var(--loss)}
+
+@media (max-width:600px){.safe-wrap{grid-template-columns:1fr}.phone{width:200px;justify-self:center}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <g id="head">
+    <rect x="-7" y="14" width="14" height="16" rx="3" style="fill:var(--skin2,#DE9478)"/>
+    <circle cx="-20" cy="2" r="5" style="fill:var(--skin,#F2B49A)"/>
+    <circle cx="20" cy="2" r="5" style="fill:var(--skin,#F2B49A)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="23" style="fill:var(--skin,#F2B49A)"/>
+    <path d="M-21,-2 C-23,-26 -6,-32 6,-30 C18,-29 25,-20 21,-2 C19,-13 11,-17 0,-16 C-10,-17 -18,-12 -21,-2Z" style="fill:var(--hair,#1B1518)"/>
+    <path d="M0,-29 C8,-40 24,-36 21,-22 C17,-28 9,-30 0,-29Z" style="fill:var(--hair,#1B1518)"/>
+    <circle cx="-7" cy="-1" r="2.2" fill="#1B1518"/><circle cx="7" cy="-1" r="2.2" fill="#1B1518"/>
+  </g>
+  <path id="beard" d="M-19,3 C-18,22 -8,29 0,29 C8,29 18,22 19,3 C15,11 8,13 0,13 C-8,13 -15,11 -19,3Z" style="fill:var(--hair,#1B1518)"/>
+  <g id="happy"><path d="M-11,-8 L-3,-9 M3,-9 L11,-8" stroke="#1B1518" stroke-width="2" stroke-linecap="round"/><path d="M-6,8 Q0,15 6,8Z" style="fill:var(--mouth,#fff)"/></g>
+  <g id="sad"><path d="M-11,-7 L-3,-11 M3,-11 L11,-7" stroke="#1B1518" stroke-width="2" stroke-linecap="round"/><path d="M-5,13 Q0,8 5,13" fill="none" stroke-width="2" stroke-linecap="round" style="stroke:var(--mouth,#fff)"/></g>
+  <g id="candleIcon"><g stroke-width="2"><line x1="-12" y1="-9" x2="-12" y2="9" stroke="#2E9E6A"/><rect x="-15" y="-5" width="6" height="9" fill="#2E9E6A"/><line x1="-3" y1="-6" x2="-3" y2="11" stroke="#D23A3A"/><rect x="-6" y="-2" width="6" height="9" fill="#D23A3A"/><line x1="6" y1="-12" x2="6" y2="5" stroke="#2E9E6A"/><rect x="3" y="-9" width="6" height="10" fill="#2E9E6A"/><line x1="14" y1="-8" x2="14" y2="2" stroke="#2E9E6A"/><rect x="11" y="-6" width="6" height="5" fill="#2E9E6A"/></g></g>
+</defs></svg>
+<div class="wrap" dir="rtl">
+  <header>
+    <span class="eyebrow">مرجع للموشن جرافك · مشروع تصميم هوية بصرية</span>
+    <h1>مكتبة عناصر الموشن</h1>
+    <p class="muted">مرجع واحد لكل ما نملكه في الموشن: محرك المشاهد السينمائي، هويات البراندات، الأصوات المعتمدة، الفيديوهات المنتجة، ثم ما استخلصناه من فيديوهات MH Trading وTF VIP TRADE. كل عنصر معه مواصفات الحركة.</p>
+    <div class="meta">
+      <span class="chip">المرجع: MH Trading · ‎@ahmedsmotion</span>
+      <span class="chip">30 ثانية · 9:16</span>
+      <span class="chip">Flat Design</span>
+      <span class="chip">المرجع 2: TF VIP TRADE · Z Motion · 16:9</span>
+      <span class="chip">6 فيديوهات · 5 براندات</span>
+      <span class="chip">آخر تحديث 23 نوفمبر 2026</span>
+    </div>
+    <p class="note">كل العناصر والشخصيات مرسومة هنا من جديد بصيغة SVG، فتقدر تنسخها وتغيّر ألوانها لأي براند.</p>
+  </header>
+
+  <section>
+    <h2>ما نملكه الآن · نوفمبر 2026</h2>
+    <p class="muted">بعد المرجعين أنتجنا ستة فيديوهات لخمسة براندات، وتكوّن عندنا محرك موشن سينمائي ثابت. هذا القسم يجمع ما صار جاهزاً للاستخدام المباشر.</p>
+
+    <h3>خط الإنتاج</h3>
+    <ol class="pipe">
+      <li><b>السكربت</b><span class="muted">تدقيق الأرقام من مصدر مفتوح، وحذف الادعاءات غير القابلة للإثبات</span></li>
+      <li><b>التعليق الصوتي</b><span class="muted">ElevenLabs · Eleven v4 · تسجيل واحد · حسين ينزّل الـ mp3 ويرسله</span></li>
+      <li><b>المشاهد</b><span class="muted">صفحة HTML واحدة فيها الدالة <span class="mono">render(t)</span> ترسم أي لحظة</span></li>
+      <li><b>المزامنة</b><span class="muted">قراءة الوقفات من الصوت (silencedetect) وضبط بداية كل مشهد على جملته</span></li>
+      <li><b>التصدير</b><span class="muted">Playwright يصوّر كل فريم ← ffmpeg لكل مشهد ← دمج بـ concat</span></li>
+      <li><b>الصوت النهائي</b><span class="muted">موسيقى مولّدة 0.5 مع ducking تحت الصوت، بدون أصوات انتقال</span></li>
+      <li><b>الحفظ</b><span class="muted">المصدر وملف التفاصيل في المشروع + حزمة zip لأي محادثة أخرى</span></li>
+    </ol>
+
+    <h3>عناصر المحرك السينمائي</h3>
+    <div class="grid">
+      <article class="card"><div class="stage dk"><div class="kf"><div class="floor"></div><div class="hz"></div><i class="pt" style="left:20%;top:70%"></i><i class="pt" style="left:45%;top:80%;animation-delay:-1.2s"></i><i class="pt" style="left:70%;top:75%;animation-delay:-2.4s"></i><i class="pt" style="left:85%;top:85%;animation-delay:-.6s"></i></div></div>
+        <div class="body"><span class="tag">خلفية كل الفيديوهات</span><h3>أرضية منظور وجزيئات</h3><dl class="spec"><dt>الأرضية</dt><dd>شبكة بلون البراند تتحرك نحو الكاميرا، خط أفق مضيء عند y≈1180–1250</dd><dt>الجزيئات</dt><dd>120–140 نقطة بعمق، تصعد ببطء</dd><dt>اللون</dt><dd>توهج الخلفية يتغير حسب المزاج: أحمر للهبوط، ذهبي للتاريخ، لون البراند للحل</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><svg class="medal" viewBox="0 0 150 150"><g class="r1"><circle cx="75" cy="75" r="70" fill="none" stroke="#D4AF37" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 7"/></g><g class="r2"><path d="M75,15 A60,60 0 0 1 127,105" fill="none" stroke="#F6DE8A" stroke-width="4" stroke-linecap="round"/></g><g class="coin"><circle cx="75" cy="75" r="44" fill="#7A5215"/><circle cx="75" cy="75" r="41" fill="#E9BE62"/><path d="M53,88 L49,62 L63,74 L75,54 L87,74 L101,62 L97,88Z" fill="#6E4A12"/></g></svg></div>
+        <div class="body"><span class="tag">العنصر المتكرر</span><h3>النواة / الميدالية داخل حلقات HUD</h3><dl class="spec"><dt>الحركة</dt><dd>حلقة متقطعة 14°/ث، قوس عكسي 40°/ث، دخول بدوران العملة</dd><dt>التنقل</dt><dd>تنتقل بين المشاهد: كبيرة عند الكشف، صغيرة خلف الـ CTA</dd><dt>استُخدمت</dt><dd>سداسي QFX، عملة السنت ¢، ميدالية التاج لـ 1R</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="kf"><div class="sweep"></div></div><div class="wr" style="position:relative">مشهد ← مشهد</div></div>
+        <div class="body"><span class="tag">الانتقال</span><h3>شعاع الضوء المائل</h3><dl class="spec"><dt>المدة</dt><dd>من 0.3ث قبل القطع إلى 0.25ث بعده، ميلان ‎-0.35 راديان</dd><dt>مع</dt><dd>وميض خفيف ≤ 0.3 وتكبير 3.5–4% للمشهد الخارج</dd><dt>الصوت</dt><dd>بدون «ووش» (طلب حسين)</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="wr"><i>الذهب</i> <i class="gold-t">يهبط..</i><br><i style="font-size:22px">شو عم</i> <i style="font-size:22px">يصير؟</i></div></div>
+        <div class="body"><span class="tag">طباعة</span><h3>ظهور كلمة كلمة</h3><dl class="spec"><dt>الحركة</dt><dd>صعود 55px + إزالة blur 8px، فاصل 0.11ث بين الكلمات</dd><dt>السطر الثاني</dt><dd>تدرّج البراند (ذهبي، تركوازي→ليموني، أزرق)</dd><dt>الخط</dt><dd>عناوين 700–800، ‎≥ 90px</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="scA scr">QF#X 7R@D1NG</div><div class="scB scr">QFX TRADING BOT</div></div>
+        <div class="body"><span class="tag">كشف الاسم</span><h3>فك التشفير (Scramble)</h3><dl class="spec"><dt>المدة</dt><dd>1ث، الحروف تستقر من اليسار لليمين</dd><dt>بعده</dt><dd>توهج 0.3ث ثم يهدأ</dd><dt>يصلح لـ</dt><dd>أسماء منتجات لاتينية فقط (TRADING BOT، CENT ACCOUNT)</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="gl"><div class="shn"></div><svg width="40" height="40" viewBox="0 0 40 40"><path d="M20,4 L33,9 L33,20 C33,29 26,34 20,37 C14,34 7,29 7,20 L7,9Z" fill="none" stroke="#D4AF37" stroke-width="3"/></svg><div><b>أموالك مفصولة</b><small>عن أموال الشركة</small></div></div></div>
+        <div class="body"><span class="tag">بطاقات</span><h3>بطاقة زجاجية بلمعة</h3><dl class="spec"><dt>الدخول</dt><dd>rotateX 55° → 0 مع صعود 80px خلال 0.7ث</dd><dt>اللمعة</dt><dd>تمر بعد 0.5ث من الدخول خلال 0.9ث</dd><dt>الحد</dt><dd>3 بطاقات في المشهد، نص 54–58px</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="term3"><div class="tb2"><i></i><i></i><i></i>MetaTrader 4 · Cent</div><svg viewBox="0 0 210 116" width="210" height="116"><g stroke-width="2"><line x1="30" y1="50" x2="30" y2="90" stroke="#D4AF37"/><rect x="26" y="58" width="8" height="24" fill="#D4AF37"/><line x1="50" y1="40" x2="50" y2="80" stroke="#8A8A8A"/><rect x="46" y="48" width="8" height="20" fill="#8A8A8A"/><line x1="70" y1="30" x2="70" y2="70" stroke="#D4AF37"/><rect x="66" y="36" width="8" height="26" fill="#D4AF37"/><line x1="90" y1="24" x2="90" y2="60" stroke="#D4AF37"/><rect x="86" y="30" width="8" height="20" fill="#D4AF37"/></g><text x="196" y="106" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#F2D58A">0.01 lot</text></svg></div></div>
+        <div class="body"><span class="tag">منصات</span><h3>نافذة منصة بمنظور 3D</h3><dl class="spec"><dt>الدخول</dt><dd>rotateY 60° → 22° مع انزلاق جانبي</dd><dt>داخلها</dt><dd>شموع تُرسم بالتتابع + شارة (EA ON / 0.01 lot)</dd><dt>تنبيه</dt><dd>لا أسعار حقيقية على الشاشة</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><svg class="gauge" viewBox="0 0 200 120"><path d="M20,100 A80,80 0 0 1 180,100" fill="none" stroke="#1E1E1E" stroke-width="14" stroke-linecap="round"/><path d="M20,100 A80,80 0 0 1 180,100" fill="none" stroke="#D4AF37" stroke-width="14" stroke-linecap="round"/><line x1="43" y1="44" x2="34" y2="35" stroke="#F2D58A" stroke-width="4"/><line x1="24" y1="84" x2="12" y2="82" stroke="#C9C9C9" stroke-width="4"/><g class="nd"><path d="M97,100 L100,34 L103,100Z" fill="#fff"/></g><circle cx="100" cy="100" r="9" fill="#D4AF37"/></svg></div>
+        <div class="body"><span class="tag">أرقام</span><h3>عدّاد نصف دائري</h3><dl class="spec"><dt>الحركة</dt><dd>القوس يُرسم 1ث، الإبرة تقفز مع overshoot ثم تتأرجح</dd><dt>العلامات</dt><dd>تظهر مع نطقها (Margin Call / Stop Out)</dd><dt>استُخدم</dt><dd>قواعد الهامش في «ليش OneRoyal»</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div style="text-align:center"><div class="yr gold-t">2006 → 2026</div><div class="tl2"><i></i></div></div></div>
+        <div class="body"><span class="tag">تاريخ</span><h3>عدّاد سنوات وخط زمني</h3><dl class="spec"><dt>الحركة</dt><dd>الرقم يعدّ والخط يُضاء من اليمين لليسار (اتجاه القراءة)</dd><dt>الختام</dt><dd>سطر واحد كبير: «20 سنة في الأسواق»</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="bdg">-42%</div><svg class="chd" viewBox="0 0 270 120" preserveAspectRatio="none"><path d="M0,15 L40,20 L70,40 L100,35 L130,70 L160,64 L190,90 L220,84 L270,108" fill="none" stroke="#E2B54A" stroke-width="4"/></svg></div>
+        <div class="body"><span class="tag">بيانات</span><h3>شارت يُرسم + شارة نسبة</h3><dl class="spec"><dt>الشارت</dt><dd>خط متوهج مع مساحة متدرجة تحته، يُرسم 3ث</dd><dt>الشارة</dt><dd>حمراء بتدرج، تقفز لحظة نطق الرقم</dd><dt>قاعدة</dt><dd>«حوالي» + مصدر مفتوح، و«رسم توضيحي» إن كان المسار تقريبياً</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="kf"><div class="sl" style="left:18%;top:30%;--r:-6deg">SELL</div><div class="sl" style="left:42%;top:42%;--r:4deg;animation-delay:.2s">SELL</div><div class="sl" style="left:66%;top:28%;--r:-3deg;animation-delay:.4s">SELL</div><div class="sl" style="left:30%;top:62%;--r:7deg;animation-delay:.6s">SELL</div><div class="sl" style="left:58%;top:64%;--r:-5deg;animation-delay:.8s">SELL</div></div></div>
+        <div class="body"><span class="tag fix">ضغط بيعي</span><h3>أوامر تتساقط</h3><dl class="spec"><dt>الحركة</dt><dd>9 بطاقات SELL تسقط بـ overshoot كل 0.22ث، ثم تنزل كلها ببطء</dd><dt>يصلح لـ</dt><dd>جني الأرباح، البيع السريع، الذعر</dd></dl></div></article>
+
+      <article class="card"><div class="stage dk"><div class="scs"><div>استمرار الهبوط</div><div>استقرار ضمن نطاق</div><div>عودة الصعود</div></div></div>
+        <div class="body"><span class="tag">سيناريوهات</span><h3>بطاقات تُضاء بالتتابع</h3><dl class="spec"><dt>الحركة</dt><dd>كل بطاقة تدخل وتُضاء بحدّ ملوّن لحظة ذكرها، وتنطفئ عند التالية</dd><dt>الألوان</dt><dd>أحمر / لون البراند / أخضر</dd></dl></div></article>
+    </div>
+
+    <h3>هويات البراندات في المحرك</h3>
+    <div class="brands">
+      <div class="bc"><div class="bh" style="background:#071B32"><b>VECTOR FX</b><div class="sws"><i style="background:#071B32"></i><i style="background:#14C8A6"></i><i style="background:#84CC16"></i><i style="background:#9CA3AF"></i></div></div><div class="bb">Tajawal + Montserrat<span>الشعار vfx-logo.png أعلى اليسار · تدرج تركوازي→ليموني</span></div></div>
+      <div class="bc"><div class="bh" style="background:#07090C"><b style="color:#F6DE8A">QFX GROUP</b><div class="sws"><i style="background:#07090C"></i><i style="background:#D4AF37"></i><i style="background:#F6DE8A"></i><i style="background:#A9A39A"></i></div></div><div class="bb">IBM Plex Sans Arabic + Montserrat<span>ذهبي على أسود · خط الدولار فضي حتى لا يتطابق مع الذهب · وسيطها VT Markets</span></div></div>
+      <div class="bc"><div class="bh" style="background:#050505"><b style="color:#F2D58A">1R PARTNERS</b><div class="sws"><i style="background:#050505"></i><i style="background:#D4AF37"></i><i style="background:#F2D58A"></i><i style="background:#C9C9C9"></i></div></div><div class="bb">IBM Plex Sans Arabic 700 + Plus Jakarta Sans<span>الشعار أعلى المنتصف 78px بعرض 330px · ميدالية ذهبية · وسيطها OneRoyal</span></div></div>
+      <div class="bc"><div class="bh" style="background:#0D0D4B"><b style="color:#16E9D7">STARTRADER v3</b><div class="sws"><i style="background:#0D0D4B"></i><i style="background:#16E9D7"></i><i style="background:#FFFFFF"></i><i style="background:#BBD8FF"></i></div></div><div class="bb">IBM Plex Sans Arabic + Plus Jakarta Sans<span>سطر أبيض + سطر تركواز · motif الخط الفاصل التركوازي · الشعار ملف رسمي بلا توهج</span></div></div>
+    </div>
+
+    <h3>الأصوات المعتمدة</h3>
+    <div class="voices">
+      <div class="vc"><span class="tag">عراقي · ذكر</span><h3>مؤمل العباس</h3><div class="wave"><i style="height:10px"></i><i style="height:22px;animation-delay:.1s"></i><i style="height:28px;animation-delay:.2s"></i><i style="height:16px;animation-delay:.3s"></i><i style="height:24px;animation-delay:.4s"></i><i style="height:12px;animation-delay:.5s"></i><i style="height:20px;animation-delay:.6s"></i></div><span class="mono">27t8HdkwF7812XrcB2Ua</span><span class="muted" style="font-size:13.5px">QFX بوت التداول · 1R حساب السنت · ليش OneRoyal</span></div>
+      <div class="vc"><span class="tag">لبناني · أنثى</span><h3>Jasmine Lebanese</h3><div class="wave"><i style="height:14px"></i><i style="height:26px;animation-delay:.15s"></i><i style="height:18px;animation-delay:.3s"></i><i style="height:28px;animation-delay:.45s"></i><i style="height:12px;animation-delay:.6s"></i><i style="height:22px;animation-delay:.75s"></i><i style="height:16px;animation-delay:.9s"></i></div><span class="mono">2zZ1oe9n1ydzKsKbR0A5</span><span class="muted" style="font-size:13.5px">فيديو «الذهب يهبط» لـ VFX وQFX · نبرة مذيعة تحليلية</span></div>
+    </div>
+    <ul class="rules">
+      <li>Eleven v4 مع علامات [curious] [confident] [warmly] [excited] أول كل سطر</li>
+      <li>تسجيل واحد فقط في كل مرة</li>
+      <li>بدون تشكيل، والأرقام مكتوبة كلمات باللهجة</li>
+      <li>جمل قصيرة مفصولة بـ «…»</li>
+      <li>صوت محايد بلا اسم شركة يصلح لأكثر من براند</li>
+      <li>الموسيقى 0.5–0.55 مع ducking، بدون «ووش»، ونقرة خفيفة عند ظهور الشارات</li>
+    </ul>
+
+    <h3>الفيديوهات المنتجة</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>الفيديو</th><th>البراند</th><th>المدة</th><th>الصوت</th><th>المصدر في المشروع</th></tr></thead>
+      <tbody>
+        <tr><td>الذهب يهبط.. شو عم يصير بالسوق؟</td><td>VFX + QFX</td><td class="t">95s</td><td>لبناني</td><td class="mono">claude/gold-analysis/</td></tr>
+        <tr><td>ليش تتداول مع OneRoyal؟</td><td>1R Partners</td><td class="t">29.8s</td><td>عراقي</td><td class="mono">claude/1r-partners/why-oneroyal-*</td></tr>
+        <tr><td>حساب السنت 10$</td><td>1R Partners × OneRoyal</td><td class="t">26.5s</td><td>عراقي</td><td class="mono">claude/1r-partners/oneroyal-cent-*</td></tr>
+        <tr><td>بوت التداول المجاني</td><td>QFX</td><td class="t">31.5s</td><td>عراقي</td><td class="mono">claude/qfx/</td></tr>
+        <tr><td>سبريد Vantage المنخفض</td><td>VFX</td><td class="t">28s</td><td>—</td><td class="mono">claude/vfx-vantage-*</td></tr>
+        <tr><td>STARTRADER Brand Film</td><td>StarTrader</td><td class="t">22s</td><td>موسيقى</td><td class="mono">claude/startrader-v3/</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>قرارات امتثال ثابتة</h3>
+    <ul class="rules no">
+      <li>لا «الشركة الوحيدة» ولا ادعاء تفرّد بلا دليل</li>
+      <li>لا وعد بالربح؛ النتائج «تاريخية موثّقة» + «الأداء السابق لا يضمن المستقبل»</li>
+      <li>لا «ذكاء اصطناعي» لبوت بقواعد ثابتة → «خوارزمية بقواعد مدروسة»</li>
+      <li>حساب السنت لا «يضاعف» الإيداع → «نفس المبلغ بوحدات أصغر»</li>
+      <li>لا حماية ASIC/CySEC لعملاء كيان آخر → «التراخيص تختلف حسب الكيان»</li>
+      <li>لا أرقام من بيانات الشركة الصحفية وحدها (جوائز…)</li>
+      <li>المحتوى التحليلي يختم بـ «ليس توصية» + تحذير المخاطر</li>
+      <li>الشعار ملف رسمي فقط؛ النص المؤقت يُستبدل قبل النشر</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>باليت المرجع 1 · MH Trading</h2>
+    <p class="muted">لونا براند، أبيض وأسود، ولون دلالي واحد للمال. أضفت أحمر الخسارة لأن الفيديو احتاجه ولم يستخدمه.</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:#B8264F"></i><div><b>عنابي البراند</b><span class="mono">#B8264F</span></div></div>
+      <div class="sw"><i style="background:#1B1518"></i><div><b>أسود دافئ</b><span class="mono">#1B1518</span></div></div>
+      <div class="sw"><i style="background:#EEEEEE"></i><div><b>رمادي الخلفية</b><span class="mono">#EEEEEE</span></div></div>
+      <div class="sw"><i style="background:#2E9E6A"></i><div><b>أخضر المال</b><span class="mono">#2E9E6A</span></div></div>
+      <div class="sw"><i style="background:#D23A3A"></i><div><b>أحمر الخسارة · إضافة</b><span class="mono">#D23A3A</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>العناصر الحركية من المرجع 1</h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="stage run" id="s-bracket">
+          <button class="replay" type="button" data-target="s-bracket">إعادة</button>
+          <i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i>
+          <div class="bracket"><b class="tl"></b><b class="tr"></b><b class="bl"></b><b class="br"></b><span>تعلّم التداول باحتراف</span></div>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع · يستحق الحفظ</span>
+          <h3>إطار الزوايا للنص</h3>
+          <dl class="spec">
+            <dt>الدخول</dt><dd>الزوايا تنزلق من الخارج 0.5ث</dd>
+            <dt>النص</dt><dd>صعود + إزالة blur بعد 0.25ث</dd>
+            <dt>Easing</dt><dd class="mono">cubic-bezier(.22,1,.36,1)</dd>
+            <dt>الاستخدام</dt><dd>توقيع حركي ثابت لكل عبارة مفتاحية</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage">
+          <div class="orbit">
+            <svg class="r1" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 7"/></svg>
+            <svg class="r2" viewBox="0 0 120 120"><path d="M60 12 A48 48 0 0 1 108 60" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linecap="round"/></svg>
+            <div class="core">
+              <svg width="40" height="30" viewBox="0 0 40 30"><g stroke-width="2"><line x1="6" y1="4" x2="6" y2="26" stroke="var(--money)"/><rect x="3" y="9" width="6" height="11" fill="var(--money)"/><line x1="16" y1="8" x2="16" y2="28" stroke="var(--loss)"/><rect x="13" y="12" width="6" height="12" fill="var(--loss)"/><line x1="26" y1="2" x2="26" y2="22" stroke="var(--money)"/><rect x="23" y="6" width="6" height="11" fill="var(--money)"/><line x1="35" y1="5" x2="35" y2="18" stroke="var(--money)"/><rect x="32" y="7" width="6" height="7" fill="var(--money)"/></g></svg>
+            </div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع · يستحق الحفظ</span>
+          <h3>حلقات HUD حول الأيقونة</h3>
+          <dl class="spec">
+            <dt>الحلقة الخارجية</dt><dd>متقطعة، دورة كاملة 6ث</dd>
+            <dt>القوس</dt><dd>عكس الاتجاه 9ث، لون البراند</dd>
+            <dt>الاستخدام</dt><dd>حركة ثانوية دائمة تمنع جمود المشهد</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage plain run" id="s-rings">
+          <button class="replay" type="button" data-target="s-rings">إعادة</button>
+          <div class="rings" dir="ltr">
+            <div class="ring" data-v="52"><svg viewBox="0 0 72 72"><circle class="bgc" cx="36" cy="36" r="30"/><circle class="fg" cx="36" cy="36" r="30"/></svg><span>0%</span></div>
+            <div class="ring" data-v="68"><svg viewBox="0 0 72 72"><circle class="bgc" cx="36" cy="36" r="30"/><circle class="fg" cx="36" cy="36" r="30"/></svg><span>0%</span></div>
+            <div class="ring" data-v="84"><svg viewBox="0 0 72 72"><circle class="bgc" cx="36" cy="36" r="30"/><circle class="fg" cx="36" cy="36" r="30"/></svg><span>0%</span></div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع · يستحق الحفظ</span>
+          <h3>حلقات النسب مع العدّاد</h3>
+          <dl class="spec">
+            <dt>المدة</dt><dd>1.2ث لكل حلقة، stagger 0.15ث</dd>
+            <dt>الرقم</dt><dd>count-up متزامن مع امتلاء الحلقة</dd>
+            <dt>الاستخدام</dt><dd>نسب ربح الحساب، أداء الإشارات، حصص السبريد</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage run" id="s-candles">
+          <button class="replay" type="button" data-target="s-candles">إعادة</button>
+          <div class="candles" id="candles"></div>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع · محسّن</span>
+          <h3>رسم الشموع تدريجياً</h3>
+          <dl class="spec">
+            <dt>الحركة</dt><dd>نمو من القاعدة مع overshoot خفيف</dd>
+            <dt>Stagger</dt><dd>0.07ث بين كل شمعة</dd>
+            <dt>Easing</dt><dd class="mono">cubic-bezier(.34,1.56,.64,1)</dd>
+            <dt>التحسين</dt><dd>المرجع عرضها ثابتة. الرسم المتتابع يشد العين</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage plain">
+          <div class="depth">
+            <i class="bill b-far" style="left:15%;animation-delay:-1s"></i>
+            <i class="bill b-far" style="left:70%;animation-delay:-3s"></i>
+            <i class="bill b-mid" style="left:40%;animation-delay:-.6s"></i>
+            <i class="bill b-mid" style="left:8%;animation-delay:-2.4s"></i>
+            <i class="bill b-near" style="left:55%;animation-delay:-1.2s"></i>
+          </div>
+          <span class="layerlabel">3 طبقات · سرعات 5ث / 3.4ث / 2ث</span>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع · يستحق الحفظ</span>
+          <h3>العمق بطبقات Parallax</h3>
+          <dl class="spec">
+            <dt>البعيد</dt><dd>صغير، شفاف 45%، بطيء</dd>
+            <dt>القريب</dt><dd>كبير، blur خفيف، أسرع بمرتين ونصف</dd>
+            <dt>تنبيه</dt><dd>لا تستخدم الأموال كوعد بالربح في الإعلانات الممولة. الأسلوب نفسه يصلح لجزيئات وأيقونات</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage run" id="s-chaos">
+          <button class="replay" type="button" data-target="s-chaos">إعادة</button>
+          <div class="chaos">
+            <div class="mini">التحليل الفني</div>
+            <div class="mini">أخبار العملات</div>
+            <div class="mini">الشموع اليابانية</div>
+            <div class="mini">استراتيجيات</div>
+            <span class="qm" style="top:-8px;right:4px">؟</span>
+            <span class="qm" style="bottom:-6px;left:10px">؟</span>
+          </div>
+        </div>
+        <div class="body">
+          <span class="tag fix">بديل مقترح لمشهد ضعيف</span>
+          <h3>تكديس "الصداع"</h3>
+          <dl class="spec">
+            <dt>بدلاً من</dt><dd>شبكة بطاقات مرتبة 8ث</dd>
+            <dt>الحركة</dt><dd>بطاقات تسقط وتتكدس بزوايا، كل 0.18ث</dd>
+            <dt>الذروة</dt><dd>علامات استفهام + اهتزاز 3 مرات</dd>
+            <dt>المدة</dt><dd>4–5 ثوانٍ فقط</dd>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>من المرجع 2 · TF VIP TRADE</h2>
+    <p class="muted">فيديو أفقي 54 ثانية، أقوى في التزامن وأضعف في الإيقاع وحجم النص. هذه التقنيات الأربع تستحق الحفظ، معادة بعناصر عامة بدل شعار العميل.</p>
+    <div class="tf-pal">
+      <span><i style="background:#3FAFBF"></i>تركوازي الشعار <b class="mono">#3FAFBF</b></span>
+      <span><i style="background:#2A8C9A"></i>تركوازي غامق <b class="mono">#2A8C9A</b></span>
+      <span><i style="background:#E8456B"></i>وردي الشخصية <b class="mono">#E8456B</b></span>
+      <span><i style="background:#F2C230"></i>أصفر الأيقونات <b class="mono">#F2C230</b></span>
+    </div>
+    <div class="grid">
+
+      <article class="card">
+        <div class="stage plain run" id="s-reveal">
+          <button class="replay" type="button" data-target="s-reveal">إعادة</button>
+          <div class="rv">
+            <div class="bgc2"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:72%"></i><i style="height:66%"></i><i style="height:85%"></i><i style="height:78%"></i><i style="height:95%"></i></div>
+            <div class="logo"><b></b>شعارك</div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع 2 · يستحق الحفظ</span>
+          <h3>كشف الشعار بسحب التركيز</h3>
+          <dl class="spec">
+            <dt>الخلفية</dt><dd>الشارت يفقد التركيز: blur 5px وشفافية 35% خلال 0.6ث</dd>
+            <dt>الشعار</dt><dd>يقفز من 50% إلى 100% مع overshoot بعد 0.4ث</dd>
+            <dt>التوقيت</dt><dd>في المرجع عند 10ث. في Reels اجعله بين 2 و3 ثوانٍ</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage plain run" id="s-map">
+          <button class="replay" type="button" data-target="s-map">إعادة</button>
+          <svg class="mm" viewBox="0 0 300 190" aria-label="خريطة مميزات تتفرع من الشعار">
+            <path class="ln" pathLength="100" d="M150,48 L150,80 L60,80 L60,122" fill="none" stroke="#9C9396" stroke-width="1.6" style="animation-delay:.3s"/>
+            <path class="ln" pathLength="100" d="M150,48 L150,122" fill="none" stroke="#9C9396" stroke-width="1.6" style="animation-delay:.9s"/>
+            <path class="ln" pathLength="100" d="M150,48 L150,80 L240,80 L240,122" fill="none" stroke="#9C9396" stroke-width="1.6" style="animation-delay:1.5s"/>
+            <g class="nd"><circle cx="150" cy="30" r="20" fill="#3FAFBF"/><circle cx="150" cy="30" r="9" fill="#fff"/></g>
+            <g class="nd" style="animation-delay:.75s"><rect x="18" y="122" width="84" height="50" rx="8" fill="#fff" stroke="#3FAFBF" stroke-width="2"/><rect x="48" y="130" width="24" height="16" rx="3" fill="#3FAFBF"/><text x="60" y="163" text-anchor="middle" font-size="11" font-family="IBM Plex Sans Arabic,sans-serif" fill="#1B1518">توصيات يومية</text></g>
+            <g class="nd" style="animation-delay:1.35s"><rect x="108" y="122" width="84" height="50" rx="8" fill="#fff" stroke="#3FAFBF" stroke-width="2"/><polygon points="144,130 144,146 158,138" fill="#F2C230"/><text x="150" y="163" text-anchor="middle" font-size="11" font-family="IBM Plex Sans Arabic,sans-serif" fill="#1B1518">فيديوهات</text></g>
+            <g class="nd" style="animation-delay:1.95s"><rect x="198" y="122" width="84" height="50" rx="8" fill="#fff" stroke="#3FAFBF" stroke-width="2"/><circle cx="240" cy="138" r="8" fill="#E3DADD"/><path d="M240,130 A8,8 0 1 1 232,138 L240,138Z" fill="#F2C230"/><text x="240" y="163" text-anchor="middle" font-size="11" font-family="IBM Plex Sans Arabic,sans-serif" fill="#1B1518">كورس مجاني</text></g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع 2 · محسّن</span>
+          <h3>خريطة المميزات من الشعار</h3>
+          <dl class="spec">
+            <dt>التسلسل</dt><dd>الخط يُرسم 0.5ث، ثم تقفز البطاقة مع نطقها</dd>
+            <dt>الحد</dt><dd>3 بطاقات فقط. المرجع عرض أكثر من 10 بنود</dd>
+            <dt>في 9:16</dt><dd>الشعار أعلى المنطقة الآمنة والبطاقات في عمود تحته، النص 70px+</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage run" id="s-folder">
+          <button class="replay" type="button" data-target="s-folder">إعادة</button>
+          <svg class="fold" viewBox="0 0 160 150" aria-label="مجلد يخرج منه فيديو">
+            <path d="M14,48 L14,136 L146,136 L146,48 L82,48 L72,36 L24,36 Q14,36 14,46Z" fill="#2A8C9A"/>
+            <g class="vid"><rect x="34" y="20" width="92" height="74" rx="8" fill="#fff" stroke="#E3DADD" stroke-width="2"/><rect x="44" y="30" width="72" height="34" rx="5" fill="#F4F1F2"/><polygon points="74,38 74,56 90,47" fill="#F2C230"/><rect x="44" y="72" width="50" height="5" rx="2" fill="#E3DADD"/><rect x="44" y="82" width="34" height="5" rx="2" fill="#E3DADD"/></g>
+            <path d="M10,70 L150,70 L144,136 L16,136Z" fill="#3FAFBF"/>
+            <rect x="46" y="96" width="68" height="20" rx="5" fill="#fff"/><text x="80" y="110" text-anchor="middle" font-size="11" font-family="IBM Plex Sans Arabic,sans-serif" fill="#1B1518">كورس الفوركس</text>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع 2 · يستحق الحفظ</span>
+          <h3>المحتوى يخرج من المجلد</h3>
+          <dl class="spec">
+            <dt>الطبقات</dt><dd>ظهر المجلد، ثم البطاقة، ثم الوجه الأمامي فوقها</dd>
+            <dt>الحركة</dt><dd>البطاقة تصعد 46px خلال 0.6ث مع overshoot</dd>
+            <dt>الاستخدام</dt><dd>كورس، باقة توصيات، تقرير أسبوعي</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage plain">
+          <svg class="ref" viewBox="0 0 290 120" aria-label="رسالة دعوة تنتقل بين شخصين">
+            <line x1="70" y1="56" x2="220" y2="56" stroke="#9C9396" stroke-width="1.6" stroke-dasharray="4 6"/>
+            <circle cx="46" cy="56" r="28" fill="#E8456B"/><circle cx="46" cy="48" r="10" fill="#F2B49A"/><path d="M30,76 C30,64 38,60 46,60 C54,60 62,64 62,76Z" fill="#3FAFBF"/>
+            <circle class="ping" cx="244" cy="56" r="28" fill="none" stroke="#3FAFBF" stroke-width="3"/>
+            <circle cx="244" cy="56" r="28" fill="#3FAFBF"/><circle cx="244" cy="48" r="10" fill="#F2C230"/><path d="M228,76 C228,64 236,60 244,60 C252,60 260,64 260,76Z" fill="#fff"/>
+            <g class="env"><rect x="62" y="46" width="26" height="18" rx="3" fill="#fff" stroke="#3FAFBF" stroke-width="2"/><path d="M62,48 L75,57 L88,48" fill="none" stroke="#3FAFBF" stroke-width="2"/></g>
+            <text x="46" y="106" text-anchor="middle" font-size="12" font-family="IBM Plex Sans Arabic,sans-serif" fill="#6E6267">أنت</text>
+            <text x="244" y="106" text-anchor="middle" font-size="12" font-family="IBM Plex Sans Arabic,sans-serif" fill="#6E6267">صديقك</text>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع 2 · محسّن</span>
+          <h3>مسار الدعوة (IB / إحالة)</h3>
+          <dl class="spec">
+            <dt>الحركة</dt><dd>الرسالة تنزلق على خط متقطع بـ ease-in-out، والصديق ينبض عند الوصول</dd>
+            <dt>المدة</dt><dd>دورة 2.6ث</dd>
+            <dt>مناسب لـ</dt><dd>حملات IB لـ StarTrader وQFX. الصياغة: "برنامج شراكة بعمولة"</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage run" id="s-avatar">
+          <button class="replay" type="button" data-target="s-avatar">إعادة</button>
+          <svg class="av" viewBox="0 0 150 150" aria-label="شخصية داخل دائرة بلون البراند">
+            <defs><clipPath id="avclip"><circle cx="75" cy="66" r="52"/></clipPath></defs>
+            <g class="avin">
+              <circle cx="75" cy="66" r="56" fill="#fff"/>
+              <circle cx="75" cy="66" r="52" fill="#E8456B"/>
+              <g clip-path="url(#avclip)"><g class="a-bob tb"><path d="M33,130 C33,100 52,92 75,92 C98,92 117,100 117,130Z" fill="#3FAFBF"/><path d="M66,92 L75,108 L84,92Z" fill="#fff"/><g transform="translate(75,62) scale(.9)"><use href="#head"/><use href="#beard"/><use href="#happy"/></g></g></g>
+            </g>
+            <g class="nm"><rect x="35" y="118" width="80" height="24" rx="12" fill="#1B1518"/><text x="75" y="135" text-anchor="middle" font-size="12" font-family="IBM Plex Sans Arabic,sans-serif" fill="#fff">مدرب الكورس</text></g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">من المرجع 2 · يستحق الحفظ</span>
+          <h3>الشخصية داخل دائرة (Avatar Badge)</h3>
+          <dl class="spec">
+            <dt>الدخول</dt><dd>قفز من 50% مع overshoot 0.5ث، ثم شارة الاسم تصعد</dd>
+            <dt>المكان</dt><dd>زاوية المنطقة الآمنة العليا كمقدّم ثابت بينما تتغير المشاهد</dd>
+            <dt>التحسين</dt><dd>في المرجع كانت جامدة. أضف تنفّساً وتعابير تتغير مع المشهد</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="stage plain">
+          <svg class="brw" viewBox="0 0 280 180" aria-label="نافذة موقع مع زر التسجيل">
+            <rect x="10" y="8" width="260" height="164" rx="12" fill="#fff" stroke="#1B1518" stroke-width="2.5"/>
+            <line x1="10" y1="34" x2="270" y2="34" stroke="#E3DADD" stroke-width="2"/>
+            <circle cx="28" cy="21" r="4" fill="#E3DADD"/><circle cx="42" cy="21" r="4" fill="#E3DADD"/><circle cx="56" cy="21" r="4" fill="#E3DADD"/>
+            <rect x="80" y="14" width="140" height="14" rx="7" fill="#F4F1F2"/><text x="150" y="25" text-anchor="middle" font-size="10" font-family="JetBrains Mono,monospace" fill="#6E6267">yourbrand.com</text>
+            <circle cx="140" cy="68" r="18" fill="#3FAFBF"/><circle cx="140" cy="68" r="7" fill="#fff"/>
+            <text x="140" y="106" text-anchor="middle" font-size="14" font-weight="600" font-family="Readex Pro,sans-serif" fill="#1B1518">كل شيء في مكان واحد</text>
+            <g class="cta"><rect x="92" y="120" width="96" height="32" rx="16" fill="#E8456B"/><text x="140" y="141" text-anchor="middle" font-size="13" font-weight="600" font-family="Readex Pro,sans-serif" fill="#fff">سجّل الآن</text></g>
+            <g class="cur"><path d="M168,138 L168,158 L173,153 L177,162 L181,160 L177,151 L184,151Z" fill="#1B1518" stroke="#fff" stroke-width="1.5"/></g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag fix">بديل مقترح لمشهد ضعيف</span>
+          <h3>نافذة الموقع مع CTA</h3>
+          <dl class="spec">
+            <dt>بدلاً من</dt><dd>نافذة موقع بلا دعوة للتسجيل</dd>
+            <dt>الحركة</dt><dd>المؤشر يتحرك إلى الزر، ضغطة 94% ثم ارتداد 104%</dd>
+            <dt>المدة</dt><dd>3 ثوانٍ على الأقل مع الرابط مقروءاً</dd>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+
+    <h3>دروس من أخطاء المرجع 2</h3>
+    <div class="lessons">
+      <div class="ls"><b>تصميم أفقي بمساحات بيضاء</b><span>ابدأ 9:16 واملأ 50%+ من المنطقة الآمنة</span></div>
+      <div class="ls"><b>نصوص بطاقات لا تُقرأ</b><span>لا تقل عن 40px على 1080×1920</span></div>
+      <div class="ls"><b>أكثر من 10 بنود</b><span>3 مميزات فقط في الإعلان</span></div>
+      <div class="ls"><b>كشف الشعار عند 10ث</b><span>بين 2 و3 ثوانٍ في الفيديو القصير</span></div>
+      <div class="ls"><b>مشاهد 5 ثوانٍ بطيئة</b><span>2–3.5ث لكل مشهد</span></div>
+      <div class="ls"><b>شارت باهت من البداية</b><span>شفافية 50%+ ثم اسحب التركيز عند الحاجة</span></div>
+      <div class="ls"><b>شخصية جامدة في الـ Hook</b><span>أقوى حركة وتعابير في أول 1.5ث</span></div>
+      <div class="ls"><b>النهاية بتوقيع المصمم</b><span>الإعلان ينتهي بشعار العميل والـ CTA</span></div>
+    </div>
+
+    <h3>المقارنة بين المرجعين</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>المعيار</th><th>MH Trading</th><th>TF VIP TRADE</th><th>ما نأخذه</th></tr></thead>
+        <tbody>
+          <tr><td>الصيغة</td><td>عمودي 30ث</td><td>أفقي 54ث</td><td>عمودي 20–30ث</td></tr>
+          <tr><td>الـ Hook</td><td>وعد بالربح</td><td>سؤال الألم</td><td>سؤال الألم + حركة قوية</td></tr>
+          <tr><td>التزامن</td><td>تعارض في مشهد</td><td>دقيق</td><td>كل عنصر مع نطقه</td></tr>
+          <tr><td>الحركة الثانوية</td><td>غنية</td><td>قليلة</td><td>حلقات HUD ونقاط طافية</td></tr>
+          <tr><td>كشف العلامة</td><td>في النهاية فقط</td><td>سحب تركيز عند 10ث</td><td>سحب تركيز عند 2–3ث</td></tr>
+          <tr><td>الـ CTA</td><td>واضح</td><td>غائب</td><td>نافذة موقع + زر ينبض</td></tr>
+          <tr><td>النص</td><td>أخطاء إملائية</td><td>صغير لا يُقرأ</td><td>تدقيق + 40px حد أدنى</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>المناطق الآمنة 1080×1920</h2>
+    <div class="safe-wrap">
+      <div class="phone" aria-label="مخطط المناطق الآمنة">
+        <div class="z z-top">واجهة علوية</div>
+        <div class="z z-bot">اسم الحساب والوصف</div>
+        <div class="z z-right"></div>
+        <div class="z z-left"></div>
+        <div class="ok">المنطقة الآمنة<br>للنص والشعار والـ CTA</div>
+      </div>
+      <div class="safe-list">
+        <div class="row"><span>أعلى الشاشة</span><span class="mono">250px</span></div>
+        <div class="row"><span>أسفل الشاشة</span><span class="mono">380px</span></div>
+        <div class="row"><span>يمين (أزرار التفاعل)</span><span class="mono">120px</span></div>
+        <div class="row"><span>يسار</span><span class="mono">60px</span></div>
+        <div class="row"><span>حجم النص الرئيسي</span><span>عرض 60–80% من الشاشة، ارتفاع حرف 70px+</span></div>
+        <p class="muted">في المرجع كان رابط الموقع داخل المنطقة السفلية فغطته واجهة يوتيوب. الـ CTA والرابط يوضعان في الثلث الأوسط دائماً.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>الشخصيات · Flat هندسي</h2>
+    <p class="muted">الأسلوب 3 من اقتراحات الشخصيات: أشكال هندسية، أطراف طويلة، رأس صغير بلا تفاصيل وجه، وألوان البراند فقط. الوجه بلا ملامح يجعل الشخصية تمثّل أي مشاهد، ويسهّل التحريك الكامل.</p>
+    <div class="recipe">
+      <div class="rc"><b>النسب</b><span class="muted">الرأس 1/8 من الطول، الساقان نصف الجسم تقريباً</span></div>
+      <div class="rc"><b>الظل</b><span class="muted">درجة واحدة أغمق على الجانب الأيمن فقط، وظل أرضي بيضاوي</span></div>
+      <div class="rc"><b>طبقات الـ Rig</b><span class="muted">رأس، جذع، ذراع علوية وسفلية، يد، ساقان. جاهزة لـ Duik أو Rubberhose في After Effects</span></div>
+      <div class="rc"><b>الحالات</b><span class="muted">نفس البطل في 3 وضعيات: محبط، عادي، واثق</span></div>
+    </div>
+    <div class="chars">
+
+      <article class="card">
+        <div class="scene" style="background:#F4E4E9"><svg viewBox="0 0 240 300" role="img" aria-label="البطل محبط والشارت يهبط">
+          <circle cx="176" cy="84" r="52" fill="#EDD2DA"/>
+          <polyline points="140,60 160,74 172,68 192,98 206,92 222,118" fill="none" stroke="#D23A3A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polygon points="228,126 212,122 222,110" fill="#D23A3A"/>
+          <text x="40" y="70" font-size="30" font-weight="700" font-family="Readex Pro,sans-serif" fill="#D23A3A" class="floaty">؟</text>
+          <ellipse cx="120" cy="286" rx="46" ry="6" fill="#1B1518" opacity=".1"/>
+          <g class="a-shake tb">
+            <path d="M112,172 L104,280 L116,280 L124,176Z" fill="#1B1518"/>
+            <path d="M124,172 L132,280 L144,280 L136,174Z" fill="#2B2327"/>
+            <rect x="96" y="276" width="24" height="9" rx="4.5" fill="#fff"/><rect x="128" y="276" width="24" height="9" rx="4.5" fill="#fff"/>
+            <path d="M100,104 C100,96 108,92 120,92 C132,92 140,96 140,104 L146,178 L94,178Z" fill="#B8264F"/>
+            <path d="M122,92 C133,92 140,96 140,104 L146,178 L126,178Z" fill="#9E2045"/>
+            <path d="M102,104 C88,94 92,70 106,62" stroke="#B8264F" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <path d="M138,104 C152,94 148,70 134,62" stroke="#9E2045" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <rect x="115" y="80" width="10" height="14" fill="#C98E6C"/>
+            <circle cx="120" cy="70" r="16" fill="#E9B38F"/>
+            <path d="M104,68 C104,52 114,46 124,48 C134,50 138,58 136,68 C132,60 124,58 116,60 C110,62 106,66 104,68Z" fill="#3B2A22"/>
+            <circle cx="106" cy="60" r="6" fill="#E9B38F"/><circle cx="134" cy="60" r="6" fill="#E9B38F"/>
+          </g>
+        </svg></div>
+        <div class="body">
+          <span class="tag fix">البطل · محبط</span>
+          <h3>أمام الخسارة</h3>
+          <dl class="spec"><dt>المشهد</dt><dd>Hook والمشكلة 0–8ث</dd><dt>الحركة</dt><dd>يدان على الرأس، اهتزاز قصير كل 2.4ث، شارت أحمر هابط خلفه</dd></dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="scene" style="background:#ECEAEB"><svg viewBox="0 0 240 300" role="img" aria-label="البطل يتابع جواله">
+          <circle cx="70" cy="90" r="48" fill="#E0DCDE"/>
+          <ellipse cx="120" cy="286" rx="46" ry="6" fill="#1B1518" opacity=".1"/>
+          <g class="a-bob tb">
+            <path d="M112,172 L104,280 L116,280 L124,176Z" fill="#1B1518"/>
+            <path d="M124,172 L132,280 L144,280 L136,174Z" fill="#2B2327"/>
+            <rect x="96" y="276" width="24" height="9" rx="4.5" fill="#fff"/><rect x="128" y="276" width="24" height="9" rx="4.5" fill="#fff"/>
+            <path d="M102,104 C96,124 96,146 100,166" stroke="#B8264F" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <path d="M100,104 C100,96 108,92 120,92 C132,92 140,96 140,104 L146,178 L94,178Z" fill="#B8264F"/>
+            <path d="M122,92 C133,92 140,96 140,104 L146,178 L126,178Z" fill="#9E2045"/>
+            <rect x="115" y="80" width="10" height="14" fill="#C98E6C"/>
+            <circle cx="120" cy="66" r="16" fill="#E9B38F"/>
+            <path d="M104,64 C104,48 114,42 124,44 C134,46 138,54 136,64 C132,56 124,54 116,56 C110,58 106,62 104,64Z" fill="#3B2A22"/>
+            <path d="M138,104 C148,120 150,134 140,142 L128,140" stroke="#9E2045" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="118" y="120" width="13" height="22" rx="3" fill="#1B1518" transform="rotate(-12 124 131)"/>
+            <rect x="120" y="123" width="9" height="15" rx="1.5" fill="#7FD0DA" class="a-blink" transform="rotate(-12 124 131)"/>
+            <circle cx="127" cy="141" r="5.5" fill="#E9B38F"/>
+          </g>
+        </svg></div>
+        <div class="body">
+          <span class="tag">البطل · عادي</span>
+          <h3>يتابع السوق على الجوال</h3>
+          <dl class="spec"><dt>المشهد</dt><dd>الانتقال للحل أو بداية التعلّم</dd><dt>الحركة</dt><dd>تنفّس 3ث، ضوء الشاشة يومض</dd></dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="scene" style="background:#E3F1EA"><svg viewBox="0 0 240 300" role="img" aria-label="البطل واثق والشارت يصعد">
+          <circle cx="62" cy="96" r="50" fill="#CFE8DB"/>
+          <polyline points="20,150 40,136 54,142 72,110 86,116 104,84" fill="none" stroke="#2E9E6A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polygon points="110,76 96,80 106,92" fill="#2E9E6A"/>
+          <ellipse cx="128" cy="286" rx="46" ry="6" fill="#1B1518" opacity=".1"/>
+          <g class="a-bob tb">
+            <path d="M120,172 L112,280 L124,280 L132,176Z" fill="#1B1518"/>
+            <path d="M132,172 L140,280 L152,280 L144,174Z" fill="#2B2327"/>
+            <rect x="104" y="276" width="24" height="9" rx="4.5" fill="#fff"/><rect x="136" y="276" width="24" height="9" rx="4.5" fill="#fff"/>
+            <path d="M110,104 C104,124 104,146 108,166" stroke="#B8264F" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <path d="M108,104 C108,96 116,92 128,92 C140,92 148,96 148,104 L154,178 L102,178Z" fill="#B8264F"/>
+            <path d="M130,92 C141,92 148,96 148,104 L154,178 L134,178Z" fill="#9E2045"/>
+            <path d="M146,104 C160,90 166,68 162,46" stroke="#9E2045" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <circle cx="162" cy="40" r="7" fill="#E9B38F"/>
+            <rect x="123" y="80" width="10" height="14" fill="#C98E6C"/>
+            <circle cx="128" cy="66" r="16" fill="#E9B38F"/>
+            <path d="M112,64 C112,48 122,42 132,44 C142,46 146,54 144,64 C140,56 132,54 124,56 C118,58 114,62 112,64Z" fill="#3B2A22"/>
+          </g>
+          <g class="a-spin tb"><circle cx="190" cy="150" r="22" fill="none" stroke="#9C9396" stroke-width="1.5" stroke-dasharray="3 6"/></g>
+          <circle cx="190" cy="150" r="14" fill="#fff"/><text x="190" y="155" text-anchor="middle" font-size="12" font-weight="700" font-family="JetBrains Mono,monospace" fill="#2E9E6A">+</text>
+        </svg></div>
+        <div class="body">
+          <span class="tag">البطل · واثق</span>
+          <h3>بعد التعلّم</h3>
+          <dl class="spec"><dt>المشهد</dt><dd>الحل والثقة قبل الـ CTA</dd><dt>الحركة</dt><dd>ذراع مرفوعة، شارت أخضر صاعد يُرسم خلفه، حلقة HUD تدور</dd><dt>تنبيه</dt><dd>الثقة لا الأموال: بلا نقود تتطاير</dd></dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="scene" style="background:#ECEAEB"><svg viewBox="0 0 240 300" role="img" aria-label="المدرب يشير إلى اللوح">
+          <rect x="96" y="40" width="128" height="96" rx="6" fill="#fff"/>
+          <rect x="96" y="136" width="128" height="6" fill="#1B1518"/>
+          <g transform="translate(160,86) scale(1.8)"><use href="#candleIcon"/></g>
+          <ellipse cx="62" cy="286" rx="40" ry="6" fill="#1B1518" opacity=".1"/>
+          <path d="M56,172 L48,280 L60,280 L68,176Z" fill="#1B1518"/>
+          <path d="M68,172 L76,280 L88,280 L80,174Z" fill="#2B2327"/>
+          <rect x="40" y="276" width="24" height="9" rx="4.5" fill="#1B1518"/><rect x="72" y="276" width="24" height="9" rx="4.5" fill="#1B1518"/>
+          <path d="M46,104 C40,124 40,146 44,166" stroke="#2E2A33" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <path d="M44,104 C44,96 52,92 64,92 C76,92 84,96 84,104 L90,178 L38,178Z" fill="#2E2A33"/>
+          <path d="M66,92 C77,92 84,96 84,104 L90,178 L70,178Z" fill="#221F26"/>
+          <path d="M58,92 L64,108 L70,92Z" fill="#F4F1F2"/><path d="M62,98 L66,98 L67,124 L64,128 L61,124Z" fill="#B8264F"/>
+          <g class="a-point" transform="translate(82,104)"><path d="M0,0 C14,-4 26,-12 34,-22" stroke="#221F26" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="37" cy="-25" r="6" fill="#C98E6C"/></g>
+          <rect x="59" y="80" width="10" height="14" fill="#A9705A"/>
+          <circle cx="64" cy="66" r="16" fill="#C98E6C"/>
+          <path d="M48,64 C48,48 58,42 68,44 C78,46 82,54 80,64 C76,56 68,54 60,56 C54,58 50,62 48,64Z" fill="#9A9297"/>
+        </svg></div>
+        <div class="body">
+          <span class="tag">شخصية مساعدة</span>
+          <h3>المدرب</h3>
+          <dl class="spec"><dt>المشهد</dt><dd>عرض الكورس</dd><dt>الحركة</dt><dd>ذراع الإشارة تتأرجح 2ث، الشموع على اللوح تُرسم بالتتابع</dd></dl>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>بلا وجوه · أيدٍ وأجهزة</h2>
+    <p class="muted">الأسلوب 5: التركيز على ما يفعله المشاهد بيده. يصلح لأي براند وأي جمهور، ويُكمل مشاهد البطل.</p>
+    <div class="chars">
+
+      <article class="card">
+        <div class="scene" style="background:#F4E4E9"><svg viewBox="0 0 240 260" role="img" aria-label="يد تضغط زر الشراء في تطبيق تداول">
+          <rect x="62" y="14" width="112" height="216" rx="18" fill="#1B1518"/>
+          <rect x="68" y="22" width="100" height="200" rx="13" fill="#fff"/>
+          <text x="78" y="44" font-size="10" font-family="JetBrains Mono,monospace" fill="#6E6267">EUR/USD</text>
+          <text x="78" y="62" font-size="15" font-weight="600" font-family="JetBrains Mono,monospace" fill="#1B1518">1.0842</text>
+          <g transform="translate(118,118) scale(2.2)"><use href="#candleIcon"/></g>
+          <line x1="76" y1="152" x2="160" y2="152" stroke="#E3DADD" stroke-width="1.5"/>
+          <rect x="76" y="174" width="40" height="26" rx="7" fill="#D23A3A"/><text x="96" y="191" text-anchor="middle" font-size="12" font-weight="600" font-family="Readex Pro,sans-serif" fill="#fff">بيع</text>
+          <rect x="120" y="174" width="40" height="26" rx="7" fill="#2E9E6A"/><text x="140" y="191" text-anchor="middle" font-size="12" font-weight="600" font-family="Readex Pro,sans-serif" fill="#fff">شراء</text>
+          <circle class="ping2" cx="140" cy="187" r="14" fill="none" stroke="#2E9E6A" stroke-width="3"/>
+          <rect x="164" y="96" width="26" height="17" rx="8.5" fill="#E9B38F"/>
+          <rect x="164" y="118" width="28" height="17" rx="8.5" fill="#E9B38F"/>
+          <rect x="164" y="140" width="26" height="17" rx="8.5" fill="#D9A07D"/>
+          <path d="M240,170 C214,170 196,182 190,200 L186,260 L240,260Z" fill="#E9B38F"/>
+          <g class="a-tap tb"><path d="M200,214 C184,204 166,196 148,190" stroke="#E9B38F" stroke-width="17" fill="none" stroke-linecap="round"/></g>
+          <path d="M240,222 L200,240 L196,260 L240,260Z" fill="#B8264F"/>
+        </svg></div>
+        <div class="body">
+          <span class="tag">يد · جوال</span>
+          <h3>الضغط على "شراء"</h3>
+          <dl class="spec"><dt>الحركة</dt><dd>الإبهام ينقر 0.35ث، موجة نبض على الزر كل 2.6ث</dd><dt>الاستخدام</dt><dd>شرح فتح صفقة، إعلان تطبيق الوسيط</dd></dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="scene" style="background:#E3F1EA"><svg viewBox="0 0 240 220" role="img" aria-label="إصبع يرسم خط اتجاه على تابلت">
+          <rect x="12" y="20" width="216" height="150" rx="14" fill="#1B1518"/>
+          <rect x="20" y="28" width="200" height="134" rx="9" fill="#fff"/>
+          <g fill="#2E9E6A"><rect x="40" y="118" width="8" height="24"/><rect x="60" y="104" width="8" height="28"/><rect x="100" y="90" width="8" height="24"/><rect x="140" y="70" width="8" height="30"/><rect x="180" y="52" width="8" height="26"/></g>
+          <g fill="#D23A3A"><rect x="80" y="100" width="8" height="22"/><rect x="120" y="86" width="8" height="20"/><rect x="160" y="66" width="8" height="18"/></g>
+          <path class="trend" d="M36,150 L196,58" stroke="#B8264F" stroke-width="3.5" stroke-linecap="round" pathLength="100"/>
+          <g class="finger"><g transform="translate(196,58)"><rect x="-6" y="0" width="13" height="38" rx="6.5" fill="#E9B38F"/><path d="M-16,30 C-20,48 -10,66 10,68 C28,68 34,52 30,38 L7,28Z" fill="#E9B38F"/><path d="M-12,62 L28,62 L32,90 L-14,90Z" fill="#2E2A33"/></g></g>
+        </svg></div>
+        <div class="body">
+          <span class="tag">يد · تابلت</span>
+          <h3>رسم خط الاتجاه</h3>
+          <dl class="spec"><dt>الحركة</dt><dd>الإصبع ينزلق والخط يُرسم معه في 1.6ث، ثم ثبات 1ث</dd><dt>الاستخدام</dt><dd>درس تحليل فني، فقرة "تعلّم معنا"</dd></dl>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>البطل المستمر بدل تبديل الشخصيات</h2>
+    <p class="muted">المرجع استخدم أربع شخصيات مختلفة فضاع التحول. في تصاميمنا: شخصية واحدة بملابس ألوان البراند، تمر بثلاث حالات.</p>
+    <div class="arc">
+      <div class="st"><h3>الإحباط <small>0–8ث</small></h3><p>أمام شاشة بشارت هابط أحمر، كتفان منخفضان، إضاءة باهتة، حركة اهتزاز خفيفة.</p></div>
+      <div class="st"><h3>التعلّم <small>9–20ث</small></h3><p>نفس الشخص يتابع الكورس، الشارت يتحول تدريجياً من أحمر لألوان البراند.</p></div>
+      <div class="st"><h3>الثقة <small>21–27ث</small></h3><p>يقف بثبات، أيقونات HUD تدور حوله، حركة صاعدة ناعمة.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>ستوري بورد محسّن لنفس الفكرة</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>الوقت</th><th>المرحلة</th><th>التعليق الصوتي</th><th>الصورة والحركة</th></tr></thead>
+        <tbody>
+          <tr><td class="t">0:00–0:02</td><td><span class="stage-pill p-pain">Hook</span></td><td>هل ما زلت تخسر أموالك في الفوركس؟</td><td>zoom-in سريع على شارت يهبط بالأحمر، النص بإطار الزوايا</td></tr>
+          <tr><td class="t">0:02–0:06</td><td><span class="stage-pill p-pain">المشكلة</span></td><td>جملة الخسارة مع صوت تأثير</td><td>البطل محبط أمام الشاشة، shake خفيف، شعار صغير بالزاوية</td></tr>
+          <tr><td class="t">0:06–0:11</td><td><span class="stage-pill p-pain">الإثارة</span></td><td>صداع التحليل والأخبار والشموع</td><td>تكديس البطاقات + علامات الاستفهام</td></tr>
+          <tr><td class="t">0:11–0:18</td><td><span class="stage-pill p-fix">الحل</span></td><td>تعلّم التداول باحتراف مع كورس مجاني</td><td>wipe بلون البراند، البطل يتابع المدرب، شموع تُرسم تدريجياً</td></tr>
+          <tr><td class="t">0:18–0:23</td><td><span class="stage-pill p-fix">الثقة</span></td><td>مقدَّم من متداولين بخبرة (مع أسماء أو أرقام)</td><td>حلقات النسب مع العدّاد، أيقونات HUD تدور</td></tr>
+          <tr><td class="t">0:23–0:29</td><td><span class="stage-pill p-brand">CTA</span></td><td>سجّل الآن واحصل على الكورس المجاني</td><td>الشعار والزر والرابط في الثلث الأوسط، تحذير مخاطر بخط صغير</td></tr>
+          <tr><td class="t">0:29–0:30</td><td><span class="stage-pill p-brand">صمت</span></td><td>—</td><td>ثبات على الـ CTA حتى لا تُقطع الجملة الأخيرة</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>قائمة فحص قبل التصدير</h2>
+    <ul class="checks">
+      <li>Hook بالألم وحركة قوية في أول 1.5 ثانية</li>
+      <li>كل جملة صوتية لها مقابل بصري في نفس اللحظة</li>
+      <li>لا مشهد ثابت أكثر من 4 ثوانٍ دون تغيير</li>
+      <li>الكلمات المفتاحية مكتوبة على الشاشة</li>
+      <li>تدقيق إملائي: الآن، على، متداولي، غير المفيدة</li>
+      <li>الشعار والرابط والـ CTA داخل المنطقة الآمنة</li>
+      <li>بطل واحد عبر القصة</li>
+      <li>لا وعد صريح بالربح + تحذير مخاطر</li>
+      <li>ثانية صمت بعد آخر كلمة</li>
+      <li>تصدير 1080×1920 بـ 30fps على الأقل</li>
+      <li>كشف الشعار بين الثانية 2 و3</li>
+      <li>3 مميزات كحد أقصى</li>
+      <li>نص البطاقات 40px أو أكثر</li>
+      <li>أي رقم منطوق مكتوب على الشاشة</li>
+      <li>لا توقيع مصمم ولا شاشة نهاية فوق المحتوى</li>
+      <li>لا نسب نجاح غير موثّقة</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function(){
+  var data=[[40,70,'up'],[60,90,'dn'],[50,80,'up'],[75,100,'up'],[55,75,'dn'],[35,55,'dn'],[45,80,'up'],[70,110,'up'],[90,120,'up'],[80,95,'dn']];
+  var box=document.getElementById('candles');
+  data.forEach(function(d,i){var c=document.createElement('i');c.className='cd '+d[2];c.style.height=(d[1]-d[0]+20)+'px';c.style.marginBottom=d[0]-30+'px';c.style.animationDelay=(i*0.07)+'s';box.appendChild(c);});
+
+  function runRings(){
+    document.querySelectorAll('.ring').forEach(function(r,i){
+      var v=+r.dataset.v,fg=r.querySelector('.fg'),lab=r.querySelector('span');
+      fg.style.transition='none';fg.style.strokeDashoffset=188.5;lab.textContent='0%';
+      void fg.getBoundingClientRect();
+      setTimeout(function(){
+        fg.style.transition='';fg.style.strokeDashoffset=188.5*(1-v/100);
+        var t0=performance.now();
+        (function tick(t){var p=Math.min(1,(t-t0)/1200);var e=1-Math.pow(1-p,3);lab.textContent=Math.round(v*e)+'%';if(p<1)requestAnimationFrame(tick);})(t0);
+      },i*150);
+    });
+  }
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){document.querySelectorAll('.ring').forEach(function(r){var v=+r.dataset.v;r.querySelector('.fg').style.strokeDashoffset=188.5*(1-v/100);r.querySelector('span').textContent=v+'%';});}
+  else{setTimeout(runRings,300);}
+
+  document.querySelectorAll('.replay').forEach(function(b){
+    b.addEventListener('click',function(){
+      var s=document.getElementById(b.dataset.target);
+      if(b.dataset.target==='s-rings'){runRings();return;}
+      s.classList.remove('run');void s.offsetWidth;s.classList.add('run');
+    });
+  });
+})();
+</script>
