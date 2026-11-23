@@ -2,7 +2,8 @@
 
 - `motion/motion-elements-library.html`: مكتبة عناصر الموشن. افتحها في المتصفح.
 - `motion/motion-graphics-guide.md`: خارطة/دليل جودة الموشن.
-- `motion/style-ui-collage.md`: أسلوب UI Collage (واجهات + كاميرا 3D + تراب 136 BPM).
+- `motion/style-static-precision.md`: **القاعدة الافتراضية**: خلفية ثابتة، ونظام تخطيط وحركة موحّد.
+- `motion/style-ui-collage.md`: أسلوب UI Collage (مرفوض كحركة، والواجهات مقبولة مسطّحة).
 - `identities/`: هويات البراندات الجديدة.
 - `videos/`: الفيديوهات الكاملة النهائية (1080×1920).
 
@@ -25,3 +26,4 @@
 | ultima-partnership-reel-vo.mp4 | شراكة مستدامة · Ultima Markets · صوت عراقي + ترجمة |
 | startrader-risk-reel.mp4 | أكبر خطأ: تكبير الحجم بعد الخسارة · StarTrader Partners · صوت عراقي + ترجمة |
 | 1r-partner-program-reel-v2.mp4 | برنامج الشراكة · 1R Partners · أسلوب UI Collage |
+| 1r-partner-program-reel-v3.mp4 | برنامج الشراكة · 1R Partners · خلفية ثابتة (المعتمد) |
