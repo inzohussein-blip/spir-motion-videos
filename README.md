@@ -3,6 +3,7 @@
 - `motion/motion-elements-library.html`: مكتبة عناصر الموشن. افتحها في المتصفح.
 - `motion/motion-graphics-guide.md`: خارطة/دليل جودة الموشن.
 - `motion/style-static-precision.md`: **القاعدة الافتراضية**: خلفية ثابتة، ونظام تخطيط وحركة موحّد.
+- `motion/style-glass-cards.md`: أسلوب بطاقات الحسابات الزجاجية (مرجع INZO).
 - `motion/style-ui-collage.md`: أسلوب UI Collage (مرفوض كحركة، والواجهات مقبولة مسطّحة).
 - `identities/`: هويات البراندات الجديدة.
 - `videos/`: الفيديوهات الكاملة النهائية (1080×1920).
@@ -27,3 +28,4 @@
 | startrader-risk-reel.mp4 | أكبر خطأ: تكبير الحجم بعد الخسارة · StarTrader Partners · صوت عراقي + ترجمة |
 | 1r-partner-program-reel-v2.mp4 | برنامج الشراكة · 1R Partners · أسلوب UI Collage |
 | 1r-partner-program-reel-v3.mp4 | برنامج الشراكة · 1R Partners · خلفية ثابتة (المعتمد) |
+| apc-prime-accounts.mp4 | حسابات APC Prime · بطاقات زجاجية · موسيقى فقط |
